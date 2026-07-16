@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const db = require('./database');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Ensure uploads directory exists
 if (!fs.existsSync('./uploads')) fs.mkdirSync('./uploads', { recursive: true });
