@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin CMS - Desa Persiapan Kiera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #059669; --green-dark: #047857; --green-light: #d1fae5;
+      --blue: #0284c7; --red: #ef4444; --orange: #f59e0b;
+      --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0;
+      --gray-600: #475569; --gray-800: #1e293b; --white: #fff;
+      --shadow: 0 4px 20px rgba(0,0,0,.08); --radius: 14px;
+    }
+    body { font-family: 'Outfit', sans-serif; background: var(--gray-50); color: var(--gray-800); min-height: 100vh; }
+
+    /* ===== LOGIN ===== */
+    #login-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%);
+    }
+    .login-card {
+      background: var(--white); border-radius: 24px; padding: 48px 40px;
+      width: 100%; max-width: 440px; box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
+    .login-logo { text-align: center; margin-bottom: 32px; }
+    .login-logo div:first-child { font-size: 3rem; margin-bottom: 8px; }
+    .login-logo h1 { font-size: 1.4rem; font-weight: 800; color: var(--gray-800); }
+    .login-logo p { font-size: .85rem; color: var(--gray-600); }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: .85rem; font-weight: 700; color: var(--gray-600); margin-bottom: 8px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 12px 16px; border: 1.5px solid var(--gray-200);
+      border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: .9rem;
+      transition: .2s; background: var(--gray-50);
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--green); background: var(--white);
+      box-shadow: 0 0 0 3px rgba(5,150,105,.1);
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;
+      border: none; border-radius: 10px; font-family: 'Outfit', sans-serif;
+      font-size: .9rem; font-weight: 700; cursor: pointer; transition: .2s; text-decoration: none;
+    }
+    .btn-primary { background: var(--green); color: var(--white); width: 100%; justify-content: center; font-size: 1rem; padding: 14px; }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .btn-danger { background: #fee2e2; color: var(--red); }
+    .btn-danger:hover { background: var(--red); color: var(--white); }
+    .btn-sm { padding: 8px 14px; font-size: .8rem; border-radius: 8px; }
+    .login-hint {
+      background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px;
+      padding: 12px 16px; font-size: .8rem; color: #92400e; margin-bottom: 20px;
+    }
+    .login-hint a { color: var(--blue); font-weight: 700; }
+
+    /* ===== LAYOUT ===== */
+    #app { display: none; min-height: 100vh; }
+    .sidebar {
+      position: fixed; top: 0; left: 0; width: 260px; height: 100vh;
+      background: linear-gradient(180deg, #064e3b, #047857);
+      padding: 24px 16px; overflow-y: auto; z-index: 100;
+    }
+    .sidebar-logo { padding: 8px 12px 24px; border-bottom: 1px solid rgba(255,255,255,.15); margin-bottom: 16px; }
+    .sidebar-logo h2 { font-size: 1rem; font-weight: 800; color: var(--white); line-height: 1.3; }
+    .sidebar-logo p { font-size: .72rem; color: rgba(255,255,255,.6); margin-top: 4px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+      border-radius: 10px; cursor: pointer; transition: .2s; color: rgba(255,255,255,.75);
+      font-size: .88rem; font-weight: 600; margin-bottom: 4px;
+    }
+    .nav-item:hover { background: rgba(255,255,255,.12); color: var(--white); }
+    .nav-item.active { background: rgba(255,255,255,.2); color: var(--white); }
+    .nav-icon { font-size: 1.1rem; width: 22px; text-align: center; }
+    .nav-divider { border-top: 1px solid rgba(255,255,255,.1); margin: 12px 0; }
+    .logout-btn {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+      border-radius: 10px; cursor: pointer; color: rgba(255,255,255,.6);
+      font-size: .88rem; font-weight: 600; transition: .2s;
+    }
+    .logout-btn:hover { background: rgba(239,68,68,.2); color: #fca5a5; }
+    .main { margin-left: 260px; padding: 32px; min-height: 100vh; }
+
+    /* ===== SECTIONS ===== */
+    .section-header { margin-bottom: 28px; }
+    .section-header h1 { font-size: 1.6rem; font-weight: 800; }
+    .section-header p { color: var(--gray-600); font-size: .9rem; margin-top: 4px; }
+    .card {
+      background: var(--white); border-radius: var(--radius); padding: 28px;
+      box-shadow: var(--shadow); margin-bottom: 24px;
+    }
+    .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--gray-100); }
+
+    /* ===== TABLE ===== */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+    th { background: var(--gray-50); padding: 12px 16px; text-align: left; font-weight: 700; color: var(--gray-600); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+    td { padding: 12px 16px; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--gray-50); }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: .72rem; font-weight: 700; }
+    .badge-green { background: var(--green-light); color: var(--green-dark); }
+    .badge-blue { background: #dbeafe; color: #1d4ed8; }
+    .badge-orange { background: #fef3c7; color: #92400e; }
+
+    /* ===== FORM MODAL ===== */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5);
+      z-index: 200; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white); border-radius: 20px; padding: 32px; width: 100%;
+      max-width: 580px; max-height: 85vh; overflow-y: auto;
+      animation: fadeUp .25s ease;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .modal-header h3 { font-size: 1.1rem; font-weight: 800; }
+    .modal-close { background: var(--gray-100); border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+    .modal-close:hover { background: var(--gray-200); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      padding: 14px 20px; border-radius: 12px; font-weight: 600; font-size: .875rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.15); animation: slideIn .3s ease;
+      max-width: 340px;
+    }
+    .toast.success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .toast.error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+    .toast.info { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+
+    /* ===== LOADING ===== */
+    .loading-spinner { text-align: center; padding: 60px; color: var(--gray-600); }
+    .spinner { width: 36px; height: 36px; border: 3px solid var(--gray-200); border-top-color: var(--green); border-radius: 50%; animation: spin .6s linear infinite; margin: 0 auto 12px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===== STATS GRID ===== */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-bottom: 28px; }
+    .stat-card { background: var(--white); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); border-left: 4px solid var(--green); }
+    .stat-card .num { font-size: 1.8rem; font-weight: 800; }
+    .stat-card .lbl { font-size: .78rem; color: var(--gray-600); font-weight: 700; text-transform: uppercase; margin-top: 4px; }
+
+    /* ===== COMMIT STATUS ===== */
+    .commit-bar {
+      position: fixed; top: 0; left: 260px; right: 0; z-index: 150;
+      background: #1e293b; color: var(--white); padding: 10px 20px;
+      display: none; align-items: center; gap: 10px; font-size: .85rem; font-weight: 600;
+    }
+    .commit-bar.show { display: flex; }
+    .commit-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; padding: 20px; }
+      .commit-bar { left: 0; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div>🏛️</div>
+      <h1>Admin CMS</h1>
+      <p>Desa Persiapan Kiera</p>
+    </div>
+    <div class="login-hint">
+      💡 Butuh <strong>GitHub Personal Access Token</strong> (scope: <code>repo</code>).
+      Buat di: <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens</a>
+    </div>
+    <div class="form-group">
+      <label>GitHub Personal Access Token</label>
+      <input type="password" id="input-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Pemilik Repo (Owner)</label>
+        <input type="text" id="input-owner" value="Buatwebsite123">
+      </div>
+      <div class="form-group">
+        <label>Nama Repo</label>
+        <input type="text" id="input-repo" value="desa-cantik-kiera-github">
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="doLogin()">🔐 Masuk ke Admin Panel</button>
+    <div id="login-error" style="color:#ef4444;font-size:.85rem;margin-top:12px;text-align:center;display:none"></div>
+  </div>
+</div>
+
+<!-- COMMIT BAR -->
+<div class="commit-bar" id="commit-bar">
+  <div class="commit-dot"></div>
+  <span id="commit-msg">Menyimpan perubahan ke GitHub...</span>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <h2>🏛️ Admin CMS</h2>
+      <p>Desa Persiapan Kiera</p>
+    </div>
+    <div class="nav-item active" onclick="showSection('dashboard')"><span class="nav-icon">📊</span>Dashboard</div>
+    <div class="nav-item" onclick="showSection('berita')"><span class="nav-icon">📰</span>Berita</div>
+    <div class="nav-item" onclick="showSection('galeri')"><span class="nav-icon">🖼️</span>Galeri</div>
+    <div class="nav-item" onclick="showSection('pengumuman')"><span class="nav-icon">📢</span>Pengumuman</div>
+    <div class="nav-item" onclick="showSection('aparatur')"><span class="nav-icon">👥</span>Aparatur</div>
+    <div class="nav-item" onclick="showSection('statistik')"><span class="nav-icon">📈</span>Statistik</div>
+    <div class="nav-item" onclick="showSection('pembangunan')"><span class="nav-icon">🏗️</span>Pembangunan</div>
+    <div class="nav-divider"></div>
+    <div class="logout-btn" onclick="doLogout()"><span class="nav-icon">🚪</span>Keluar</div>
+  </div>
+
+  <div class="main" id="main-content">
+    <!-- Content loaded here -->
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Form</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  CONFIG & STATE
+// ============================================================
+let GH_TOKEN = '', GH_OWNER = '', GH_REPO = '', GH_BRANCH = 'main';
+let currentSection = 'dashboard';
+let fileCache = {}; // { path: { content: [], sha: '' } }
+
+// ============================================================
+//  GITHUB API
+// ============================================================
+async function ghGet(path) {
+  const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
+    headers: { Authorization: `Bearer ${GH_TOKEN}`, Accept: 'application/vnd.github.v3+json' }
+  });
+  if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+  return res.json();
+}
+
+async function ghPut(path, content, sha, message) {
+  const body = {
+    message: message || `CMS: Update ${path}`,
+    content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))),
+    branch: GH_BRANCH
+  };
+  if (sha) body.sha = sha;
+  const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${GH_TOKEN}`,
+      Accept: 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || 'Gagal menyimpan');
+  }
+  return res.json();
+}
+
+async function loadJSON(path) {
+  const file = await ghGet(path);
+  const content = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g, '')))));
+  fileCache[path] = { content, sha: file.sha };
+  return { content, sha: file.sha };
+}
+
+async function saveJSON(path, content, message) {
+  showCommitBar(true, `Menyimpan ${path}...`);
+  try {
+    const sha = fileCache[path]?.sha;
+    const result = await ghPut(path, content, sha, message);
+    fileCache[path] = { content, sha: result.content.sha };
+    showCommitBar(false);
+    toast('✅ Data berhasil disimpan & website diperbarui!', 'success');
+    return true;
+  } catch(e) {
+    showCommitBar(false);
+    toast('❌ Gagal menyimpan: ' + e.message, 'error');
+    return false;
+  }
+}
+
+// ============================================================
+//  AUTH
+// ============================================================
+async function doLogin() {
+  const token = document.getElementById('input-token').value.trim();
+  const owner = document.getElementById('input-owner').value.trim();
+  const repo  = document.getElementById('input-repo').value.trim();
+  if (!token || !owner || !repo) { showLoginError('Semua field harus diisi!'); return; }
+
+  const btn = document.querySelector('.btn-primary');
+  btn.textContent = '🔄 Memverifikasi...'; btn.disabled = true;
+
+  try {
+    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('Token tidak valid atau repo tidak ditemukan');
+    GH_TOKEN = token; GH_OWNER = owner; GH_REPO = repo;
+    sessionStorage.setItem('cms_token', token);
+    sessionStorage.setItem('cms_owner', owner);
+    sessionStorage.setItem('cms_repo', repo);
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    showSection('dashboard');
+  } catch(e) {
+    showLoginError(e.message);
+    btn.textContent = '🔐 Masuk ke Admin Panel'; btn.disabled = false;
+  }
+}
+
+function showLoginError(msg) {
+  const el = document.getElementById('login-error');
+  el.textContent = '❌ ' + msg; el.style.display = 'block';
+}
+
+function doLogout() {
+  sessionStorage.clear(); fileCache = {};
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+}
+
+// Check session
+window.addEventListener('load', () => {
+  const t = sessionStorage.getItem('cms_token');
+  if (t) {
+    GH_TOKEN = t;
+    GH_OWNER = sessionStorage.getItem('cms_owner') || 'Buatwebsite123';
+    GH_REPO  = sessionStorage.getItem('cms_repo') || 'desa-cantik-kiera-github';
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    showSection('dashboard');
+  }
+});
+
+// ============================================================
+//  NAVIGATION
+// ============================================================
+function showSection(name) {
+  currentSection = name;
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  const items = document.querySelectorAll('.nav-item');
+  const map = { dashboard:0, berita:1, galeri:2, pengumuman:3, aparatur:4, statistik:5, pembangunan:6 };
+  if (items[map[name]]) items[map[name]].classList.add('active');
+  const fns = { dashboard: renderDashboard, berita: renderBerita, galeri: renderGaleri, pengumuman: renderPengumuman, aparatur: renderAparatur, statistik: renderStatistik, pembangunan: renderPembangunan };
+  if (fns[name]) fns[name]();
+}
+
+function setContent(html) { document.getElementById('main-content').innerHTML = html; }
+function showLoading() { setContent('<div class="loading-spinner"><div class="spinner"></div><p>Memuat data...</p></div>'); }
+
+// ============================================================
+//  DASHBOARD
+// ============================================================
+async function renderDashboard() {
+  setContent('<div class="loading-spinner"><div class="spinner"></div><p>Memuat dashboard...</p></div>');
+  try {
+    const [b, g, p] = await Promise.all([
+      loadJSON('data/berita.json'), loadJSON('data/galeri.json'), loadJSON('data/pengumuman.json')
+    ]);
+    setContent(`
+      <div class="section-header">
+        <h1>📊 Dashboard</h1>
+        <p>Selamat datang di Admin CMS Desa Persiapan Kiera</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card" style="border-color:#059669">
+          <div class="num">${b.content.length}</div>
+          <div class="lbl">📰 Berita</div>
+        </div>
+        <div class="stat-card" style="border-color:#0284c7">
+          <div class="num">${g.content.length}</div>
+          <div class="lbl">🖼️ Galeri</div>
+        </div>
+        <div class="stat-card" style="border-color:#f59e0b">
+          <div class="num">${p.content.length}</div>
+          <div class="lbl">📢 Pengumuman</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📌 Panduan Penggunaan</div>
+        <div style="line-height:1.9;color:var(--gray-600);font-size:.9rem">
+          <p>✅ <strong>Tambah/Edit/Hapus</strong> data melalui menu di sidebar</p>
+          <p>✅ Setiap kali simpan, data <strong>langsung terupdate di website online</strong></p>
+          <p>✅ Website: <a href="https://${GH_OWNER.toLowerCase()}.github.io/${GH_REPO}" target="_blank" style="color:var(--blue)">https://${GH_OWNER.toLowerCase()}.github.io/${GH_REPO}</a></p>
+          <p>⚠️ Untuk upload gambar: gunakan <a href="https://imgbb.com" target="_blank" style="color:var(--blue)">imgbb.com</a> (gratis), lalu paste URL-nya</p>
+        </div>
+      </div>
+    `);
+  } catch(e) {
+    setContent(`<div class="card"><p style="color:red">❌ Gagal memuat: ${e.message}</p></div>`);
+  }
+}
+
+// ============================================================
+//  BERITA
+// ============================================================
+async function renderBerita() {
+  showLoading();
+  try {
+    const { content } = await loadJSON('data/berita.json');
+    setContent(`
+      <div class="section-header">
+        <h1>📰 Manajemen Berita</h1>
+        <p>Kelola berita dan informasi desa</p>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <div class="card-title" style="margin:0;border:none;padding:0">Daftar Berita (${content.length})</div>
+          <button class="btn btn-primary btn-sm" onclick="openBeritaForm()">➕ Tambah Berita</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Judul</th><th>Kategori</th><th>Tanggal</th><th>Aksi</th></tr></thead>
+            <tbody>
+              ${content.length ? content.map((b,i) => `
+                <tr>
+                  <td><strong style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:280px">${b.judul}</strong></td>
+                  <td><span class="badge badge-green">${b.kategori || 'berita-desa'}</span></td>
+                  <td style="font-size:.8rem;color:var(--gray-600)">${new Date(b.tanggal).toLocaleDateString('id-ID')}</td>
+                  <td>
+                    <button class="btn btn-sm" style="background:#dbeafe;color:#1d4ed8;margin-right:6px" onclick="openBeritaForm(${i})">✏️ Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteBerita(${i})">🗑️</button>
+                  </td>
+                </tr>
+              `).join('') : '<tr><td colspan="4" style="text-align:center;padding:40px;color:var(--gray-600)">Belum ada berita</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `);
+  } catch(e) { setContent(`<div class="card"><p style="color:red">❌ ${e.message}</p></div>`); }
+}
+
+function openBeritaForm(idx) {
+  const data = fileCache['data/berita.json']?.content || [];
+  const b = idx !== undefined ? data[idx] : {};
+  document.getElementById('modal-title').textContent = idx !== undefined ? '✏️ Edit Berita' : '➕ Tambah Berita';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="form-group"><label>Judul Berita *</label><input type="text" id="f-judul" value="${b.judul||''}"></div>
+    <div class="form-group"><label>Ringkasan</label><textarea id="f-ringkasan">${b.ringkasan||''}</textarea></div>
+    <div class="form-group"><label>Konten (boleh HTML)</label><textarea id="f-konten" style="min-height:150px">${b.konten||''}</textarea></div>
+    <div class="form-row">
+      <div class="form-group"><label>Kategori</label>
+        <select id="f-kategori">
+          <option value="berita-desa" ${b.kategori==='berita-desa'?'selected':''}>Berita Desa</option>
+          <option value="pemerintah-desa" ${b.kategori==='pemerintah-desa'?'selected':''}>Pemerintah Desa</option>
+          <option value="pengumuman" ${b.kategori==='pengumuman'?'selected':''}>Pengumuman</option>
+          <option value="anti-korupsi" ${b.kategori==='anti-korupsi'?'selected':''}>Anti Korupsi</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Penulis</label><input type="text" id="f-penulis" value="${b.penulis||'Admin Desa'}"></div>
+    </div>
+    <div class="form-group"><label>URL Gambar (dari imgbb.com atau link langsung)</label><input type="text" id="f-gambar" value="${b.gambar||''}" placeholder="https://..."></div>
+    <div style="display:flex;gap:12px;margin-top:8px">
+      <button class="btn btn-primary" onclick="saveBerita(${idx})">💾 Simpan</button>
+      <button class="btn" style="background:var(--gray-100)" onclick="closeModal()">Batal</button>
+    </div>
+  `;
+  openModal();
+}
+
+async function saveBerita(idx) {
+  const judul = document.getElementById('f-judul').value.trim();
+  if (!judul) { toast('Judul tidak boleh kosong!', 'error'); return; }
+  const data = fileCache['data/berita.json']?.content || [];
+  const item = {
+    id: idx !== undefined ? data[idx].id : (Date.now()),
+    judul,
+    ringkasan: document.getElementById('f-ringkasan').value,
+    konten: document.getElementById('f-konten').value,
+    kategori: document.getElementById('f-kategori').value,
+    penulis: document.getElementById('f-penulis').value || 'Admin Desa',
+    gambar: document.getElementById('f-gambar').value || null,
+    status: 'published',
+    views: idx !== undefined ? (data[idx].views || 0) : 0,
+    tanggal: idx !== undefined ? data[idx].tanggal : new Date().toISOString()
+  };
+  if (idx !== undefined) data[idx] = item; else data.unshift(item);
+  closeModal();
+  const ok = await saveJSON('data/berita.json', data, `CMS: ${idx !== undefined ? 'Edit' : 'Tambah'} berita "${judul}"`);
+  if (ok) renderBerita();
+}
+
+async function deleteBerita(idx) {
+  if (!confirm('Hapus berita ini?')) return;
+  const data = fileCache['data/berita.json']?.content || [];
+  data.splice(idx, 1);
+  const ok = await saveJSON('data/berita.json', data, 'CMS: Hapus berita');
+  if (ok) renderBerita();
+}
+
+// ============================================================
+//  GALERI
+// ============================================================
+async function renderGaleri() {
+  showLoading();
+  try {
+    const { content } = await loadJSON('data/galeri.json');
+    setContent(`
+      <div class="section-header"><h1>🖼️ Manajemen Galeri</h1><p>Kelola foto galeri desa</p></div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <div class="card-title" style="margin:0;border:none;padding:0">Foto Galeri (${content.length})</div>
+          <button class="btn btn-primary btn-sm" onclick="openGaleriForm()">➕ Tambah Foto</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px">
+          ${content.length ? content.map((g,i) => `
+            <div style="border-radius:12px;overflow:hidden;border:1.5px solid var(--gray-200);background:var(--gray-50)">
+              ${g.gambar ? `<img src="${g.gambar}" style="width:100%;height:130px;object-fit:cover">` : `<div style="height:130px;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:2.5rem">🖼️</div>`}
+              <div style="padding:12px">
+                <p style="font-weight:700;font-size:.85rem;margin-bottom:8px">${g.judul}</p>
+                <div style="display:flex;gap:6px">
+                  <button class="btn btn-sm" style="background:#dbeafe;color:#1d4ed8;flex:1" onclick="openGaleriForm(${i})">✏️</button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteGaleri(${i})">🗑️</button>
+                </div>
+              </div>
+            </div>
+          `).join('') : '<p style="color:var(--gray-600);padding:40px;text-align:center">Belum ada foto</p>'}
+        </div>
+      </div>
+    `);
+  } catch(e) { setContent(`<div class="card"><p style="color:red">❌ ${e.message}</p></div>`); }
+}
+
+function openGaleriForm(idx) {
+  const data = fileCache['data/galeri.json']?.content || [];
+  const g = idx !== undefined ? data[idx] : {};
+  document.getElementById('modal-title').textContent = idx !== undefined ? '✏️ Edit Foto' : '➕ Tambah Foto';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="form-group"><label>Judul Foto *</label><input type="text" id="f-judul" value="${g.judul||''}"></div>
+    <div class="form-group"><label>Deskripsi</label><textarea id="f-deskripsi">${g.deskripsi||''}</textarea></div>
+    <div class="form-group"><label>URL Gambar *</label><input type="text" id="f-gambar" value="${g.gambar||''}" placeholder="Upload ke imgbb.com, paste URL di sini"></div>
+    <p style="font-size:.78rem;color:var(--gray-600);margin-bottom:16px">💡 Upload gambar gratis di <a href="https://imgbb.com" target="_blank" style="color:var(--blue)">imgbb.com</a></p>
+    <div style="display:flex;gap:12px">
+      <button class="btn btn-primary" onclick="saveGaleri(${idx})">💾 Simpan</button>
+      <button class="btn" style="background:var(--gray-100)" onclick="closeModal()">Batal</button>
+    </div>
+  `;
+  openModal();
+}
+
+async function saveGaleri(idx) {
+  const judul = document.getElementById('f-judul').value.trim();
+  if (!judul) { toast('Judul tidak boleh kosong!', 'error'); return; }
+  const data = fileCache['data/galeri.json']?.content || [];
+  const item = { id: idx !== undefined ? data[idx].id : Date.now(), judul, deskripsi: document.getElementById('f-deskripsi').value, gambar: document.getElementById('f-gambar').value || null, tanggal: idx !== undefined ? data[idx].tanggal : new Date().toISOString() };
+  if (idx !== undefined) data[idx] = item; else data.unshift(item);
+  closeModal();
+  const ok = await saveJSON('data/galeri.json', data, `CMS: ${idx !== undefined ? 'Edit' : 'Tambah'} foto "${judul}"`);
+  if (ok) renderGaleri();
+}
+
+async function deleteGaleri(idx) {
+  if (!confirm('Hapus foto ini?')) return;
+  const data = fileCache['data/galeri.json']?.content || [];
+  data.splice(idx, 1);
+  const ok = await saveJSON('data/galeri.json', data, 'CMS: Hapus foto galeri');
+  if (ok) renderGaleri();
+}
+
+// ============================================================
+//  PENGUMUMAN
+// ============================================================
+async function renderPengumuman() {
+  showLoading();
+  try {
+    const { content } = await loadJSON('data/pengumuman.json');
+    setContent(`
+      <div class="section-header"><h1>📢 Manajemen Pengumuman</h1></div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <div class="card-title" style="margin:0;border:none;padding:0">Pengumuman (${content.length})</div>
+          <button class="btn btn-primary btn-sm" onclick="openPengForm()">➕ Tambah</button>
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Judul</th><th>Tanggal Acara</th><th>Lokasi</th><th>Aksi</th></tr></thead>
+          <tbody>
+            ${content.length ? content.map((p,i) => `
+              <tr>
+                <td><strong>${p.judul}</strong></td>
+                <td style="font-size:.8rem">${p.tanggal_acara || '-'}</td>
+                <td style="font-size:.8rem">${p.lokasi || '-'}</td>
+                <td>
+                  <button class="btn btn-sm" style="background:#dbeafe;color:#1d4ed8;margin-right:6px" onclick="openPengForm(${i})">✏️</button>
+                  <button class="btn btn-danger btn-sm" onclick="deletePeng(${i})">🗑️</button>
+                </td>
+              </tr>
+            `).join('') : '<tr><td colspan="4" style="text-align:center;padding:40px;color:var(--gray-600)">Belum ada pengumuman</td></tr>'}
+          </tbody>
+        </table></div>
+      </div>
+    `);
+  } catch(e) { setContent(`<div class="card"><p style="color:red">❌ ${e.message}</p></div>`); }
+}
+
+function openPengForm(idx) {
+  const data = fileCache['data/pengumuman.json']?.content || [];
+  const p = idx !== undefined ? data[idx] : {};
+  document.getElementById('modal-title').textContent = idx !== undefined ? '✏️ Edit Pengumuman' : '➕ Tambah Pengumuman';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="form-group"><label>Judul *</label><input type="text" id="f-judul" value="${p.judul||''}"></div>
+    <div class="form-group"><label>Konten</label><textarea id="f-konten">${p.konten||''}</textarea></div>
+    <div class="form-row">
+      <div class="form-group"><label>Tanggal Acara</label><input type="date" id="f-tanggal" value="${p.tanggal_acara||''}"></div>
+      <div class="form-group"><label>Lokasi</label><input type="text" id="f-lokasi" value="${p.lokasi||''}"></div>
+    </div>
+    <div style="display:flex;gap:12px">
+      <button class="btn btn-primary" onclick="savePeng(${idx})">💾 Simpan</button>
+      <button class="btn" style="background:var(--gray-100)" onclick="closeModal()">Batal</button>
+    </div>
+  `;
+  openModal();
+}
+
+async function savePeng(idx) {
+  const judul = document.getElementById('f-judul').value.trim();
+  if (!judul) { toast('Judul tidak boleh kosong!', 'error'); return; }
+  const data = fileCache['data/pengumuman.json']?.content || [];
+  const item = { id: idx !== undefined ? data[idx].id : Date.now(), judul, konten: document.getElementById('f-konten').value, tanggal_acara: document.getElementById('f-tanggal').value, lokasi: document.getElementById('f-lokasi').value, tanggal: idx !== undefined ? data[idx].tanggal : new Date().toISOString() };
+  if (idx !== undefined) data[idx] = item; else data.unshift(item);
+  closeModal();
+  const ok = await saveJSON('data/pengumuman.json', data, `CMS: ${idx !== undefined ? 'Edit' : 'Tambah'} pengumuman`);
+  if (ok) renderPengumuman();
+}
+
+async function deletePeng(idx) {
+  if (!confirm('Hapus pengumuman ini?')) return;
+  const data = fileCache['data/pengumuman.json']?.content || [];
+  data.splice(idx, 1);
+  const ok = await saveJSON('data/pengumuman.json', data, 'CMS: Hapus pengumuman');
+  if (ok) renderPengumuman();
+}
+
+// ============================================================
+//  APARATUR
+// ============================================================
+async function renderAparatur() {
+  showLoading();
+  try {
+    const { content } = await loadJSON('data/aparatur.json');
+    setContent(`
+      <div class="section-header"><h1>👥 Aparatur Desa</h1></div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <div class="card-title" style="margin:0;border:none;padding:0">Aparatur (${content.length})</div>
+          <button class="btn btn-primary btn-sm" onclick="openAparaturForm()">➕ Tambah</button>
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>#</th><th>Nama</th><th>Jabatan</th><th>Aksi</th></tr></thead>
+          <tbody>
+            ${content.map((a,i) => `
+              <tr>
+                <td>${a.urutan||i+1}</td>
+                <td><strong>${a.nama}</strong></td>
+                <td>${a.jabatan}</td>
+                <td>
+                  <button class="btn btn-sm" style="background:#dbeafe;color:#1d4ed8;margin-right:6px" onclick="openAparaturForm(${i})">✏️</button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteAparatur(${i})">🗑️</button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table></div>
+      </div>
+    `);
+  } catch(e) { setContent(`<div class="card"><p style="color:red">❌ ${e.message}</p></div>`); }
+}
+
+function openAparaturForm(idx) {
+  const data = fileCache['data/aparatur.json']?.content || [];
+  const a = idx !== undefined ? data[idx] : {};
+  document.getElementById('modal-title').textContent = idx !== undefined ? '✏️ Edit Aparatur' : '➕ Tambah Aparatur';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="form-group"><label>Nama Lengkap *</label><input type="text" id="f-nama" value="${a.nama||''}"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Jabatan *</label><input type="text" id="f-jabatan" value="${a.jabatan||''}"></div>
+      <div class="form-group"><label>Urutan</label><input type="number" id="f-urutan" value="${a.urutan||99}"></div>
+    </div>
+    <div class="form-group"><label>URL Foto</label><input type="text" id="f-foto" value="${a.foto||''}" placeholder="Upload ke imgbb.com, paste URL"></div>
+    <div style="display:flex;gap:12px">
+      <button class="btn btn-primary" onclick="saveAparatur(${idx})">💾 Simpan</button>
+      <button class="btn" style="background:var(--gray-100)" onclick="closeModal()">Batal</button>
+    </div>
+  `;
+  openModal();
+}
+
+async function saveAparatur(idx) {
+  const nama = document.getElementById('f-nama').value.trim();
+  const jabatan = document.getElementById('f-jabatan').value.trim();
+  if (!nama || !jabatan) { toast('Nama dan jabatan wajib diisi!', 'error'); return; }
+  const data = fileCache['data/aparatur.json']?.content || [];
+  const item = { id: idx !== undefined ? data[idx].id : Date.now(), nama, jabatan, nip: '-', foto: document.getElementById('f-foto').value || null, urutan: parseInt(document.getElementById('f-urutan').value) || 99 };
+  if (idx !== undefined) data[idx] = item; else data.push(item);
+  data.sort((a,b) => a.urutan - b.urutan);
+  closeModal();
+  const ok = await saveJSON('data/aparatur.json', data, `CMS: ${idx !== undefined ? 'Edit' : 'Tambah'} aparatur "${nama}"`);
+  if (ok) renderAparatur();
+}
+
+async function deleteAparatur(idx) {
+  if (!confirm('Hapus aparatur ini?')) return;
+  const data = fileCache['data/aparatur.json']?.content || [];
+  data.splice(idx, 1);
+  const ok = await saveJSON('data/aparatur.json', data, 'CMS: Hapus aparatur');
+  if (ok) renderAparatur();
+}
+
+// ============================================================
+//  STATISTIK
+// ============================================================
+async function renderStatistik() {
+  showLoading();
+  try {
+    const { content } = await loadJSON('data/statistik.json');
+    const d = content;
+    setContent(`
+      <div class="section-header"><h1>📈 Data Statistik</h1></div>
+      <div class="card">
+        <div class="card-title">Data Kependudukan Utama</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:24px">
+          ${[
+            ['jumlah_penduduk','👥 Total Penduduk','jiwa'],
+            ['jumlah_kk','🏠 Kepala Keluarga','KK'],
+            ['laki_laki','👨 Laki-laki','jiwa'],
+            ['perempuan','👩 Perempuan','jiwa'],
+            ['jumlah_dusun','🏘️ Jumlah Dusun','dusun'],
+          ].map(([k,l,u]) => `
+            <div class="form-group" style="margin:0">
+              <label>${l}</label>
+              <input type="${k==='luas_wilayah'?'text':'number'}" id="s-${k}" value="${d[k]||0}">
+            </div>
+          `).join('')}
+          <div class="form-group" style="margin:0">
+            <label>📏 Luas Wilayah</label>
+            <input type="text" id="s-luas_wilayah" value="${d.luas_wilayah||'245 Ha'}">
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="saveStatistik()">💾 Simpan Data Statistik</button>
+      </div>
+    `);
+  } catch(e) { setContent(`<div class="card"><p style="color:red">❌ ${e.message}</p></div>`); }
+}
+
+async function saveStatistik() {
+  const data = fileCache['data/statistik.json']?.content || {};
+  const fields = ['jumlah_penduduk','jumlah_kk','laki_laki','perempuan','jumlah_dusun'];
+  fields.forEach(f => { data[f] = parseInt(document.getElementById(`s-${f}`).value) || 0; });
+  data.luas_wilayah = document.getElementById('s-luas_wilayah').value;
+  await saveJSON('data/statistik.json', data, 'CMS: Update statistik kependudukan');
+}
+
+// ============================================================
+//  PEMBANGUNAN
+// ============================================================
+async function renderPembangunan() {
+  showLoading();
+  try {
+    const { content } = await loadJSON('data/pembangunan.json');
+    const statusBadge = { selesai: 'badge-green', proses: 'badge-blue', rencana: 'badge-orange' };
+    setContent(`
+      <div class="section-header"><h1>🏗️ Program Pembangunan</h1></div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <div class="card-title" style="margin:0;border:none;padding:0">Program (${content.length})</div>
+          <button class="btn btn-primary btn-sm" onclick="openPembForm()">➕ Tambah</button>
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Nama Program</th><th>Anggaran</th><th>Status</th><th>Tahun</th><th>Aksi</th></tr></thead>
+          <tbody>
+            ${content.length ? content.map((p,i) => `
+              <tr>
+                <td><strong>${p.nama}</strong></td>
+                <td style="font-size:.8rem">${p.anggaran||'-'}</td>
+                <td><span class="badge ${statusBadge[p.status]||'badge-green'}">${p.status}</span></td>
+                <td>${p.tahun||'-'}</td>
+                <td>
+                  <button class="btn btn-sm" style="background:#dbeafe;color:#1d4ed8;margin-right:6px" onclick="openPembForm(${i})">✏️</button>
+                  <button class="btn btn-danger btn-sm" onclick="deletePemb(${i})">🗑️</button>
+                </td>
+              </tr>
+            `).join('') : '<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--gray-600)">Belum ada data</td></tr>'}
+          </tbody>
+        </table></div>
+      </div>
+    `);
+  } catch(e) { setContent(`<div class="card"><p style="color:red">❌ ${e.message}</p></div>`); }
+}
+
+function openPembForm(idx) {
+  const data = fileCache['data/pembangunan.json']?.content || [];
+  const p = idx !== undefined ? data[idx] : {};
+  document.getElementById('modal-title').textContent = idx !== undefined ? '✏️ Edit Program' : '➕ Tambah Program';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="form-group"><label>Nama Program *</label><input type="text" id="f-nama" value="${p.nama||''}"></div>
+    <div class="form-group"><label>Deskripsi</label><textarea id="f-deskripsi">${p.deskripsi||''}</textarea></div>
+    <div class="form-row">
+      <div class="form-group"><label>Anggaran</label><input type="text" id="f-anggaran" value="${p.anggaran||''}" placeholder="Rp. 100.000.000"></div>
+      <div class="form-group"><label>Sumber Dana</label><input type="text" id="f-sumber" value="${p.sumber_dana||''}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Status</label>
+        <select id="f-status">
+          <option value="selesai" ${p.status==='selesai'?'selected':''}>✅ Selesai</option>
+          <option value="proses" ${p.status==='proses'?'selected':''}>🔄 Proses</option>
+          <option value="rencana" ${p.status==='rencana'?'selected':''}>📋 Rencana</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Tahun</label><input type="number" id="f-tahun" value="${p.tahun||new Date().getFullYear()}"></div>
+    </div>
+    <div class="form-group"><label>Lokasi</label><input type="text" id="f-lokasi" value="${p.lokasi||''}"></div>
+    <div style="display:flex;gap:12px">
+      <button class="btn btn-primary" onclick="savePemb(${idx})">💾 Simpan</button>
+      <button class="btn" style="background:var(--gray-100)" onclick="closeModal()">Batal</button>
+    </div>
+  `;
+  openModal();
+}
+
+async function savePemb(idx) {
+  const nama = document.getElementById('f-nama').value.trim();
+  if (!nama) { toast('Nama program wajib diisi!', 'error'); return; }
+  const data = fileCache['data/pembangunan.json']?.content || [];
+  const item = { id: idx !== undefined ? data[idx].id : Date.now(), nama, deskripsi: document.getElementById('f-deskripsi').value, anggaran: document.getElementById('f-anggaran').value, sumber_dana: document.getElementById('f-sumber').value, status: document.getElementById('f-status').value, tahun: parseInt(document.getElementById('f-tahun').value), lokasi: document.getElementById('f-lokasi').value };
+  if (idx !== undefined) data[idx] = item; else data.unshift(item);
+  closeModal();
+  const ok = await saveJSON('data/pembangunan.json', data, `CMS: ${idx !== undefined ? 'Edit' : 'Tambah'} program "${nama}"`);
+  if (ok) renderPembangunan();
+}
+
+async function deletePemb(idx) {
+  if (!confirm('Hapus program ini?')) return;
+  const data = fileCache['data/pembangunan.json']?.content || [];
+  data.splice(idx, 1);
+  const ok = await saveJSON('data/pembangunan.json', data, 'CMS: Hapus program pembangunan');
+  if (ok) renderPembangunan();
+}
+
+// ============================================================
+//  MODAL & UTILS
+// ============================================================
+function openModal() { document.getElementById('modal').classList.add('open'); }
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) closeModal(); });
+
+function showCommitBar(show, msg = '') {
+  const bar = document.getElementById('commit-bar');
+  bar.classList.toggle('show', show);
+  if (msg) document.getElementById('commit-msg').textContent = msg;
+}
+
+function toast(msg, type = 'success') {
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 4500);
+}
+</script>
+</body>
+</html>
