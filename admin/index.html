@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin - Desa Persiapan Kiera</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo"><img src="../uploads/logo.png" alt="Logo Maluku Barat Daya" style="width:40px;height:40px;object-fit:contain;vertical-align:middle;"></div>
+        <div>
+          <h2 class="sidebar-brand-name">Desa Kiera</h2>
+          <p class="sidebar-brand-sub">Admin Panel</p>
+        </div>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li>
+          <div class="sidebar-link active" data-target="overview">
+            <span>🏠 Overview</span>
+          </div>
+        </li>
+        <li>
+          <div class="sidebar-link" data-target="berita">
+            <span>📰 Kelola Berita</span>
+          </div>
+        </li>
+        <li>
+          <div class="sidebar-link" data-target="galeri">
+            <span>🖼️ Kelola Galeri</span>
+          </div>
+        </li>
+        <li>
+          <div class="sidebar-link" data-target="pengumuman">
+            <span>📢 Kelola Pengumuman</span>
+          </div>
+        </li>
+        <li>
+          <div class="sidebar-link" data-target="aparatur">
+            <span>👥 Kelola Aparatur</span>
+          </div>
+        </li>
+        <li>
+          <div class="sidebar-link" data-target="pembangunan">
+            <span>🏗️ Kelola Pembangunan</span>
+          </div>
+        </li>
+        <li>
+          <div class="sidebar-link" data-target="pengaduan">
+            <span>📨 Kelola Pengaduan</span>
+          </div>
+        </li>
+        <li>
+          <div class="sidebar-link" data-target="statistik">
+            <span>📊 Kelola Statistik</span>
+          </div>
+        </li>
+        <li>
+          <div class="sidebar-link" data-target="database">
+            <span>🗄️ Database Viewer</span>
+          </div>
+        </li>
+        <li>
+          <a class="sidebar-link" href="../index.html" target="_blank" style="text-decoration:none">
+            <span>🌐 Lihat Website</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button id="logoutBtn" class="btn btn-logout btn-block">🚪 Keluar</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <div>
+          <h1 id="pageTitle" class="page-title">Dashboard Overview</h1>
+        </div>
+        <div class="user-profile">
+          <div class="user-avatar" id="avatarInitials">A</div>
+          <div class="user-name" id="adminName">Administrator</div>
+        </div>
+      </header>
+
+      <!-- Alert Message -->
+      <div id="statusAlert" class="alert"></div>
+
+      <!-- ==========================================
+           TAB: OVERVIEW
+           ========================================== -->
+      <section id="tab-overview" class="tab-content active">
+        <div class="stats-grid" id="statsGrid">
+          <div class="loading-wrapper"><div class="spinner"></div></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px">
+          <!-- Recent Complaints -->
+          <div class="content-card" style="margin-bottom:0">
+            <div class="card-header">
+              <h3 class="card-title">📨 Pengaduan Baru</h3>
+            </div>
+            <div id="recentComplaints">
+              <p style="color:var(--gray-600);font-size:0.9rem">Memuat...</p>
+            </div>
+          </div>
+
+          <!-- Recent News -->
+          <div class="content-card" style="margin-bottom:0">
+            <div class="card-header">
+              <h3 class="card-title">📰 Berita Terbaru</h3>
+            </div>
+            <div id="recentNews">
+              <p style="color:var(--gray-600);font-size:0.9rem">Memuat...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB: BERITA
+           ========================================== -->
+      <section id="tab-berita" class="tab-content">
+        <div class="content-card">
+          <div class="title-row">
+            <h3 class="card-title">📰 Kelola Berita & Artikel Desa</h3>
+            <button class="btn btn-primary btn-sm" onclick="openBeritaModal()">📝 Tambah Berita Baru</button>
+          </div>
+          <div class="db-table-wrapper">
+            <table class="db-table" id="tableBerita">
+              <thead>
+                <tr>
+                  <th>Gambar</th>
+                  <th>Judul</th>
+                  <th>Kategori</th>
+                  <th>Status</th>
+                  <th>Views</th>
+                  <th>Tanggal</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="listBerita">
+                <tr><td colspan="7" style="text-align:center;padding:20px;">Memuat data...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB: GALERI
+           ========================================== -->
+      <section id="tab-galeri" class="tab-content">
+        <div class="content-card">
+          <div class="title-row">
+            <h3 class="card-title">🖼️ Kelola Galeri Foto</h3>
+            <button class="btn btn-primary btn-sm" onclick="openGaleriModal()">🖼️ Tambah Foto Baru</button>
+          </div>
+          <div class="db-table-wrapper">
+            <table class="db-table" id="tableGaleri">
+              <thead>
+                <tr>
+                  <th>Gambar</th>
+                  <th>Judul</th>
+                  <th>Deskripsi</th>
+                  <th>Tanggal</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="listGaleri">
+                <tr><td colspan="5" style="text-align:center;padding:20px;">Memuat data...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB: PENGUMUMAN
+           ========================================== -->
+      <section id="tab-pengumuman" class="tab-content">
+        <div class="content-card">
+          <div class="title-row">
+            <h3 class="card-title">📢 Kelola Pengumuman Resmi</h3>
+            <button class="btn btn-primary btn-sm" onclick="openPengumumanModal()">📢 Tambah Pengumuman Baru</button>
+          </div>
+          <div class="db-table-wrapper">
+            <table class="db-table" id="tablePengumuman">
+              <thead>
+                <tr>
+                  <th>Judul</th>
+                  <th>Konten</th>
+                  <th>Tanggal Acara</th>
+                  <th>Lokasi</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="listPengumuman">
+                <tr><td colspan="5" style="text-align:center;padding:20px;">Memuat data...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB: APARATUR
+           ========================================== -->
+      <section id="tab-aparatur" class="tab-content">
+        <div class="content-card">
+          <div class="title-row">
+            <h3 class="card-title">👥 Kelola Aparatur Desa</h3>
+            <button class="btn btn-primary btn-sm" onclick="openAparaturModal()">👥 Tambah Aparatur Baru</button>
+          </div>
+          <div class="db-table-wrapper">
+            <table class="db-table" id="tableAparatur">
+              <thead>
+                <tr>
+                  <th>Urutan</th>
+                  <th>Foto</th>
+                  <th>Nama</th>
+                  <th>Jabatan</th>
+                  <th>NIP</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="listAparatur">
+                <tr><td colspan="6" style="text-align:center;padding:20px;">Memuat data...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB: PEMBANGUNAN
+           ========================================== -->
+      <section id="tab-pembangunan" class="tab-content">
+        <div class="content-card">
+          <div class="title-row">
+            <h3 class="card-title">🏗️ Kelola Proyek Pembangunan</h3>
+            <button class="btn btn-primary btn-sm" onclick="openPembangunanModal()">🏗️ Tambah Proyek Baru</button>
+          </div>
+          <div class="db-table-wrapper">
+            <table class="db-table" id="tablePembangunan">
+              <thead>
+                <tr>
+                  <th>Nama Proyek</th>
+                  <th>Anggaran</th>
+                  <th>Sumber Dana</th>
+                  <th>Tahun</th>
+                  <th>Lokasi</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="listPembangunan">
+                <tr><td colspan="7" style="text-align:center;padding:20px;">Memuat data...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB: PENGADUAN
+           ========================================== -->
+      <section id="tab-pengaduan" class="tab-content">
+        <div class="content-card">
+          <div class="title-row">
+            <h3 class="card-title">📨 Daftar Laporan Pengaduan</h3>
+          </div>
+          <div class="db-table-wrapper">
+            <table class="db-table" id="tablePengaduan">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Nama Pengirim</th>
+                  <th>Kontak</th>
+                  <th>Subjek</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="listPengaduan">
+                <tr><td colspan="6" style="text-align:center;padding:20px;">Memuat data...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB: STATISTIK
+           ========================================== -->
+      <section id="tab-statistik" class="tab-content">
+        <style>
+          .sub-tabs-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--gray-200);
+            padding-bottom: 8px;
+            overflow-x: auto;
+          }
+          .sub-tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 18px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+          }
+          .sub-tab-btn:hover {
+            background: var(--gray-100);
+            color: var(--green-main);
+          }
+          .sub-tab-btn.active {
+            background: var(--green-pale);
+            color: var(--green-dark);
+          }
+          .sub-tab-content {
+            display: none;
+          }
+          .sub-tab-content.active {
+            display: block;
+          }
+          .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+          }
+          .form-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px 24px;
+          }
+          @media (max-width: 768px) {
+            .form-grid-2, .form-grid-3 {
+              grid-template-columns: 1fr;
+            }
+          }
+          .umur-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 12px;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-100);
+          }
+          .umur-row label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+          }
+        </style>
+
+        <div class="content-card">
+          <div class="card-header">
+            <h3 class="card-title">📊 Kelola Data Statistik & Demografi Desa</h3>
+          </div>
+          
+          <div style="padding: 20px;">
+            <div class="sub-tabs-bar">
+              <button type="button" class="sub-tab-btn active" onclick="switchSubTab('sub-dasar')">🏢 Statistik Dasar</button>
+              <button type="button" class="sub-tab-btn" onclick="switchSubTab('sub-umur')">⏳ Kelompok Umur</button>
+              <button type="button" class="sub-tab-btn" onclick="switchSubTab('sub-pendidikan')">🎓 Pendidikan</button>
+              <button type="button" class="sub-tab-btn" onclick="switchSubTab('sub-pekerjaan')">💼 Pekerjaan</button>
+              <button type="button" class="sub-tab-btn" onclick="switchSubTab('sub-agama-nikah')">⛪ Agama & Perkawinan</button>
+              <button type="button" class="sub-tab-btn" onclick="switchSubTab('sub-pemilih')">🗳️ Wajib Pilih</button>
+            </div>
+
+            <form id="statistikForm">
+              <!-- SUB-TAB: STATISTIK DASAR -->
+              <div id="sub-dasar" class="sub-tab-content active">
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label for="jumlah_penduduk" class="form-label">Total Penduduk (Jiwa)</label>
+                    <input type="number" id="jumlah_penduduk" name="jumlah_penduduk" class="form-control" required min="0">
+                  </div>
+                  <div class="form-group">
+                    <label for="jumlah_kk" class="form-label">Jumlah Kepala Keluarga (KK)</label>
+                    <input type="number" id="jumlah_kk" name="jumlah_kk" class="form-control" required min="0">
+                  </div>
+                  <div class="form-group">
+                    <label for="laki_laki" class="form-label">Jumlah Laki-laki</label>
+                    <input type="number" id="laki_laki" name="laki_laki" class="form-control" required min="0">
+                  </div>
+                  <div class="form-group">
+                    <label for="perempuan" class="form-label">Jumlah Perempuan</label>
+                    <input type="number" id="perempuan" name="perempuan" class="form-control" required min="0">
+                  </div>
+                  <div class="form-group">
+                    <label for="jumlah_dusun" class="form-label">Jumlah Dusun</label>
+                    <input type="number" id="jumlah_dusun" name="jumlah_dusun" class="form-control" required min="0">
+                  </div>
+                  <div class="form-group">
+                    <label for="luas_wilayah" class="form-label">Luas Wilayah (misal: 245 Ha)</label>
+                    <input type="text" id="luas_wilayah" name="luas_wilayah" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SUB-TAB: KELOMPOK UMUR -->
+              <div id="sub-umur" class="sub-tab-content">
+                <div style="margin-bottom: 12px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; font-weight: 700; color: var(--gray-600); border-bottom: 2px solid var(--gray-200); padding-bottom: 6px;">
+                  <div>Rentang Usia</div>
+                  <div>Laki-laki (Jiwa)</div>
+                  <div>Perempuan (Jiwa)</div>
+                </div>
+                
+                <div class="umur-row"><div>0 - 4 Tahun</div><input type="number" data-kategori="umur" data-label="0-4" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="0-4" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>5 - 9 Tahun</div><input type="number" data-kategori="umur" data-label="5-9" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="5-9" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>10 - 14 Tahun</div><input type="number" data-kategori="umur" data-label="10-14" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="10-14" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>15 - 19 Tahun</div><input type="number" data-kategori="umur" data-label="15-19" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="15-19" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>20 - 24 Tahun</div><input type="number" data-kategori="umur" data-label="20-24" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="20-24" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>25 - 29 Tahun</div><input type="number" data-kategori="umur" data-label="25-29" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="25-29" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>30 - 34 Tahun</div><input type="number" data-kategori="umur" data-label="30-34" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="30-34" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>35 - 39 Tahun</div><input type="number" data-kategori="umur" data-label="35-39" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="35-39" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>40 - 44 Tahun</div><input type="number" data-kategori="umur" data-label="40-44" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="40-44" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>45 - 49 Tahun</div><input type="number" data-kategori="umur" data-label="45-49" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="45-49" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>50 - 54 Tahun</div><input type="number" data-kategori="umur" data-label="50-54" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="50-54" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>55 - 59 Tahun</div><input type="number" data-kategori="umur" data-label="55-59" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="55-59" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>60 - 64 Tahun</div><input type="number" data-kategori="umur" data-label="60-64" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="60-64" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>65 - 69 Tahun</div><input type="number" data-kategori="umur" data-label="65-69" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="65-69" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>70 - 74 Tahun</div><input type="number" data-kategori="umur" data-label="70-74" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="70-74" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>75 - 79 Tahun</div><input type="number" data-kategori="umur" data-label="75-79" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="75-79" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>80 - 84 Tahun</div><input type="number" data-kategori="umur" data-label="80-84" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="80-84" data-gender="wanita" class="form-control" min="0" required></div>
+                <div class="umur-row"><div>85 Tahun Ke atas</div><input type="number" data-kategori="umur" data-label="85+" data-gender="pria" class="form-control" min="0" required> <input type="number" data-kategori="umur" data-label="85+" data-gender="wanita" class="form-control" min="0" required></div>
+              </div>
+
+              <!-- SUB-TAB: PENDIDIKAN -->
+              <div id="sub-pendidikan" class="sub-tab-content">
+                <div class="form-grid-2">
+                  <div class="form-group"><label class="form-label">Tidak/Belum Sekolah</label><input type="number" data-kategori="pendidikan" data-label="Tidak/Belum Sekolah" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Belum Tamat SD/Sederajat</label><input type="number" data-kategori="pendidikan" data-label="Belum Tamat SD/Sederajat" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Tamat SD/Sederajat</label><input type="number" data-kategori="pendidikan" data-label="Tamat SD/Sederajat" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">SLTP/Sederajat</label><input type="number" data-kategori="pendidikan" data-label="SLTP/Sederajat" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">SLTA/Sederajat</label><input type="number" data-kategori="pendidikan" data-label="SLTA/Sederajat" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Diploma I/II</label><input type="number" data-kategori="pendidikan" data-label="Diploma I/II" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Akademi/Diploma III</label><input type="number" data-kategori="pendidikan" data-label="Akademi/Diploma III" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Diploma IV/Strata I</label><input type="number" data-kategori="pendidikan" data-label="Diploma IV/Strata I" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Strata II</label><input type="number" data-kategori="pendidikan" data-label="Strata II" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Strata III</label><input type="number" data-kategori="pendidikan" data-label="Strata III" class="form-control" min="0" required></div>
+                </div>
+              </div>
+
+              <!-- SUB-TAB: PEKERJAAN -->
+              <div id="sub-pekerjaan" class="sub-tab-content">
+                <div class="form-grid-2">
+                  <div class="form-group"><label class="form-label">Belum/Tidak Bekerja</label><input type="number" data-kategori="pekerjaan" data-label="Belum/Tidak Bekerja" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Mengurus Rumah Tangga</label><input type="number" data-kategori="pekerjaan" data-label="Mengurus Rumah Tangga" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Pelajar/Mahasiswa</label><input type="number" data-kategori="pekerjaan" data-label="Pelajar/Mahasiswa" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Pensiunan</label><input type="number" data-kategori="pekerjaan" data-label="Pensiunan" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Pegawai Negeri Sipil (PNS)</label><input type="number" data-kategori="pekerjaan" data-label="Pegawai Negeri Sipil (PNS)" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Karyawan Swasta</label><input type="number" data-kategori="pekerjaan" data-label="Karyawan Swasta" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Petani/Pekebun</label><input type="number" data-kategori="pekerjaan" data-label="Petani/Pekebun" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Nelayan</label><input type="number" data-kategori="pekerjaan" data-label="Nelayan" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Wiraswasta</label><input type="number" data-kategori="pekerjaan" data-label="Wiraswasta" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Buruh Harian Lepas</label><input type="number" data-kategori="pekerjaan" data-label="Buruh Harian Lepas" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Perangkat Desa</label><input type="number" data-kategori="pekerjaan" data-label="Perangkat Desa" class="form-control" min="0" required></div>
+                </div>
+              </div>
+
+              <!-- SUB-TAB: AGAMA & PERKAWINAN -->
+              <div id="sub-agama-nikah" class="sub-tab-content">
+                <h4 style="border-bottom: 1px solid var(--gray-200); padding-bottom: 8px; margin-bottom: 15px; color: var(--green-dark);">⛪ Agama</h4>
+                <div class="form-grid-3" style="margin-bottom: 30px;">
+                  <div class="form-group"><label class="form-label">Islam</label><input type="number" data-kategori="agama" data-label="Islam" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Kristen (Protestan)</label><input type="number" data-kategori="agama" data-label="Kristen (Protestan)" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Katolik</label><input type="number" data-kategori="agama" data-label="Katolik" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Hindu</label><input type="number" data-kategori="agama" data-label="Hindu" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Buddha</label><input type="number" data-kategori="agama" data-label="Buddha" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Konghucu</label><input type="number" data-kategori="agama" data-label="Konghucu" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Lainnya</label><input type="number" data-kategori="agama" data-label="Lainnya" class="form-control" min="0" required></div>
+                </div>
+
+                <h4 style="border-bottom: 1px solid var(--gray-200); padding-bottom: 8px; margin-bottom: 15px; color: var(--green-dark);">💍 Status Perkawinan</h4>
+                <div class="form-grid-2">
+                  <div class="form-group"><label class="form-label">Belum Kawin</label><input type="number" data-kategori="perkawinan" data-label="Belum Kawin" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Kawin</label><input type="number" data-kategori="perkawinan" data-label="Kawin" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Cerai Hidup</label><input type="number" data-kategori="perkawinan" data-label="Cerai Hidup" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Cerai Mati</label><input type="number" data-kategori="perkawinan" data-label="Cerai Mati" class="form-control" min="0" required></div>
+                </div>
+              </div>
+
+              <!-- SUB-TAB: WAJIB PILIH -->
+              <div id="sub-pemilih" class="sub-tab-content">
+                <div class="form-grid-2">
+                  <div class="form-group"><label class="form-label">Sudah Wajib Pilih (Usia &ge; 17 tahun / Kawin)</label><input type="number" data-kategori="wajib_pilih" data-label="Sudah Wajib Pilih" class="form-control" min="0" required></div>
+                  <div class="form-group"><label class="form-label">Belum Wajib Pilih</label><input type="number" data-kategori="wajib_pilih" data-label="Belum Wajib Pilih" class="form-control" min="0" required></div>
+                </div>
+              </div>
+
+              <div style="margin-top: 30px; text-align: right; border-top: 1px solid var(--gray-200); padding-top: 20px;">
+                <button type="submit" class="btn btn-primary" style="padding: 12px 30px; font-size: 0.95rem;">💾 Simpan Seluruh Perubahan</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB: DATABASE VIEWER
+           ========================================== -->
+      <section id="tab-database" class="tab-content">
+        <div class="content-card">
+          <div class="card-header">
+            <h3 class="card-title">🔍 SQLite Database Tables Explorer</h3>
+          </div>
+          
+          <div class="db-selector-bar">
+            <label for="tableSelect" class="form-label" style="margin-bottom:0;font-weight:600">Pilih Tabel:</label>
+            <select id="tableSelect" class="form-control" style="width:auto;min-width:200px">
+              <option value="statistik_desa" selected>statistik_desa (Data Statistik)</option>
+              <option value="admins">admins (Akun Pengelola)</option>
+              <option value="berita">berita (Berita & Artikel)</option>
+              <option value="galeri">galeri (Galeri Foto)</option>
+              <option value="pengumuman">pengumuman (Pengumuman Resmi)</option>
+              <option value="aparatur">aparatur (Aparatur Desa)</option>
+              <option value="pengaduan">pengaduan (Laporan Pengaduan)</option>
+              <option value="pembangunan">pembangunan (Proyek Desa)</option>
+            </select>
+            <button id="refreshTableBtn" class="btn btn-primary" style="padding:10px 20px">🔄 Refresh</button>
+          </div>
+
+          <div id="dbTableContainer" class="db-table-wrapper">
+            <p style="text-align:center;padding:40px;color:var(--gray-600)">Pilih tabel untuk menampilkan data.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ==========================================
+       MODAL DIALOGS SYSTEM
+       ========================================== -->
+
+  <!-- Modal Berita -->
+  <div class="modal-overlay" id="modalBerita">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalBeritaTitle">Tambah Berita</h4>
+        <button class="modal-close" onclick="closeModal('modalBerita')">&times;</button>
+      </div>
+      <form id="formBerita" enctype="multipart/form-data">
+        <input type="hidden" id="berita_id" name="id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Judul Berita</label>
+            <input type="text" id="berita_judul" name="judul" class="form-control" required>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Kategori</label>
+              <select id="berita_kategori" name="kategori" class="form-control">
+                <option value="berita-desa">Berita Desa</option>
+                <option value="kegiatan">Kegiatan Desa</option>
+                <option value="pengumuman">Pengumuman</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select id="berita_status" name="status" class="form-control">
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ringkasan Singkat</label>
+            <textarea id="berita_ringkasan" name="ringkasan" class="form-control" rows="2" required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Konten Lengkap (HTML diperbolehkan)</label>
+            <textarea id="berita_konten" name="konten" class="form-control" rows="6" required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gambar Sampul</label>
+            <input type="file" id="berita_gambar" name="gambar" class="form-control-file" accept="image/*">
+            <p style="font-size:0.75rem;color:var(--gray-400);margin-top:4px">Biarkan kosong jika tidak ingin mengubah gambar.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modalBerita')">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Galeri -->
+  <div class="modal-overlay" id="modalGaleri">
+    <div class="modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalGaleriTitle">Tambah Foto Galeri</h4>
+        <button class="modal-close" onclick="closeModal('modalGaleri')">&times;</button>
+      </div>
+      <form id="formGaleri" enctype="multipart/form-data">
+        <input type="hidden" id="galeri_id" name="id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Judul Foto</label>
+            <input type="text" id="galeri_judul" name="judul" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Deskripsi / Keterangan</label>
+            <textarea id="galeri_deskripsi" name="deskripsi" class="form-control" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">File Foto</label>
+            <input type="file" id="galeri_gambar" name="gambar" class="form-control-file" accept="image/*">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modalGaleri')">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Pengumuman -->
+  <div class="modal-overlay" id="modalPengumuman">
+    <div class="modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalPengumumanTitle">Tambah Pengumuman</h4>
+        <button class="modal-close" onclick="closeModal('modalPengumuman')">&times;</button>
+      </div>
+      <form id="formPengumuman">
+        <input type="hidden" id="pengumuman_id" name="id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Judul Pengumuman</label>
+            <input type="text" id="pengumuman_judul" name="judul" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Konten / Isi</label>
+            <textarea id="pengumuman_konten" name="konten" class="form-control" rows="4" required></textarea>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Tanggal Acara / Pelaksanaan</label>
+              <input type="text" id="pengumuman_tanggal_acara" name="tanggal_acara" class="form-control" placeholder="YYYY-MM-DD atau bebas" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Lokasi</label>
+              <input type="text" id="pengumuman_lokasi" name="lokasi" class="form-control" placeholder="misal: Kantor Desa" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modalPengumuman')">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Aparatur -->
+  <div class="modal-overlay" id="modalAparatur">
+    <div class="modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalAparaturTitle">Tambah Aparatur Desa</h4>
+        <button class="modal-close" onclick="closeModal('modalAparatur')">&times;</button>
+      </div>
+      <form id="formAparatur" enctype="multipart/form-data">
+        <input type="hidden" id="aparatur_id" name="id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Nama Lengkap</label>
+            <input type="text" id="aparatur_nama" name="nama" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Jabatan</label>
+            <input type="text" id="aparatur_jabatan" name="jabatan" class="form-control" required>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">NIP</label>
+              <input type="text" id="aparatur_nip" name="nip" class="form-control" placeholder="Tulis - jika tidak ada NIP">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Urutan Tampilan</label>
+              <input type="number" id="aparatur_urutan" name="urutan" class="form-control" value="99" min="1" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Foto Aparatur</label>
+            <input type="file" id="aparatur_foto" name="foto" class="form-control-file" accept="image/*">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modalAparatur')">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Pembangunan -->
+  <div class="modal-overlay" id="modalPembangunan">
+    <div class="modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalPembangunanTitle">Tambah Proyek Pembangunan</h4>
+        <button class="modal-close" onclick="closeModal('modalPembangunan')">&times;</button>
+      </div>
+      <form id="formPembangunan">
+        <input type="hidden" id="pembangunan_id" name="id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Nama Proyek / Kegiatan</label>
+            <input type="text" id="pembangunan_nama" name="nama" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Deskripsi Lengkap</label>
+            <textarea id="pembangunan_deskripsi" name="deskripsi" class="form-control" rows="3"></textarea>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Anggaran (misal: Rp. 250.000.000)</label>
+              <input type="text" id="pembangunan_anggaran" name="anggaran" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Sumber Dana</label>
+              <input type="text" id="pembangunan_sumber_dana" name="sumber_dana" class="form-control" placeholder="misal: Dana Desa" required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Tahun</label>
+              <input type="number" id="pembangunan_tahun" name="tahun" class="form-control" value="2025" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Lokasi</label>
+              <input type="text" id="pembangunan_lokasi" name="lokasi" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status Proyek</label>
+            <select id="pembangunan_status" name="status" class="form-control">
+              <option value="rencana">Rencana</option>
+              <option value="proses">Proses</option>
+              <option value="selesai">Selesai</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modalPembangunan')">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Pengaduan -->
+  <div class="modal-overlay" id="modalPengaduan">
+    <div class="modal">
+      <div class="modal-header">
+        <h4 class="modal-title">Detail Laporan Pengaduan</h4>
+        <button class="modal-close" onclick="closeModal('modalPengaduan')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <table class="db-table" style="font-size:0.9rem">
+          <tr><th style="width:120px">Nama</th><td id="pengaduan_view_nama"></td></tr>
+          <tr><th>Email</th><td id="pengaduan_view_email"></td></tr>
+          <tr><th>No HP</th><td id="pengaduan_view_hp"></td></tr>
+          <tr><th>Subjek</th><td id="pengaduan_view_subjek"></td></tr>
+          <tr><th>Tanggal</th><td id="pengaduan_view_tanggal"></td></tr>
+          <tr><th>Pesan</th><td id="pengaduan_view_pesan" style="white-space:pre-wrap;line-height:1.5"></td></tr>
+        </table>
+        <div class="form-group" style="margin-top:20px">
+          <label class="form-label">Ubah Status Pengaduan</label>
+          <select id="pengaduan_update_status" class="form-control">
+            <option value="baru">Baru</option>
+            <option value="proses">Dalam Proses</option>
+            <option value="selesai">Selesai / Ditindaklanjuti</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeModal('modalPengaduan')">Tutup</button>
+        <button type="button" class="btn btn-primary" id="btnUpdatePengaduanStatus">Simpan Status</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentAdmin = null;
+    let dataBerita = [];
+    let dataGaleri = [];
+    let dataPengumuman = [];
+    let dataAparatur = [];
+    let dataPembangunan = [];
+    let dataPengaduan = [];
+
+    // Check if session is valid
+    async function initSession() {
+      try {
+        const res = await fetch('/api/auth/me');
+        if (!res.ok) {
+          window.location.href = 'login.html';
+          return;
+        }
+        const data = await res.json();
+        currentAdmin = data.admin;
+        document.getElementById('adminName').textContent = currentAdmin.nama;
+        document.getElementById('avatarInitials').textContent = currentAdmin.nama.split(' ').slice(0, 2).map(n => n[0]).join('').toUpperCase();
+
+        loadOverviewData();
+      } catch (e) {
+        window.location.href = 'login.html';
+      }
+    }
+    initSession();
+
+    // Alert helper
+    function showAlert(msg, isSuccess = true) {
+      const alertDiv = document.getElementById('statusAlert');
+      alertDiv.className = `alert alert-${isSuccess ? 'success' : 'danger'}`;
+      alertDiv.textContent = msg;
+      alertDiv.style.display = 'block';
+      setTimeout(() => {
+        alertDiv.style.display = 'none';
+      }, 5000);
+    }
+
+    // Modal helpers
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    // Tabs navigation
+    document.querySelectorAll('.sidebar-link[data-target]').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
+        const target = link.getAttribute('data-target');
+        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+        document.getElementById(`tab-${target}`).classList.add('active');
+
+        // Update Title
+        const titles = {
+          overview: 'Dashboard Overview',
+          berita: 'Kelola Berita & Artikel',
+          galeri: 'Kelola Galeri Foto',
+          pengumuman: 'Kelola Pengumuman Resmi',
+          aparatur: 'Kelola Aparatur Desa',
+          pembangunan: 'Kelola Proyek Pembangunan',
+          pengaduan: 'Daftar Laporan Pengaduan',
+          statistik: 'Kelola Statistik Desa',
+          database: 'Database Explorer'
+        };
+        document.getElementById('pageTitle').textContent = titles[target];
+
+        // Perform loading action depending on tab
+        if (target === 'overview') {
+          loadOverviewData();
+        } else if (target === 'berita') {
+          loadBerita();
+        } else if (target === 'galeri') {
+          loadGaleri();
+        } else if (target === 'pengumuman') {
+          loadPengumuman();
+        } else if (target === 'aparatur') {
+          loadAparatur();
+        } else if (target === 'pembangunan') {
+          loadPembangunan();
+        } else if (target === 'pengaduan') {
+          loadPengaduan();
+        } else if (target === 'statistik') {
+          loadStatistikData();
+        } else if (target === 'database') {
+          loadDatabaseTable();
+        }
+      });
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      try {
+        await fetch('/api/auth/logout', { method: 'POST' });
+        window.location.href = 'login.html';
+      } catch (e) {
+        showAlert('Gagal melakukan logout', false);
+      }
+    });
+
+    // ==========================================
+    // OVERVIEW LOGIC
+    // ==========================================
+    async function loadOverviewData() {
+      const statsGrid = document.getElementById('statsGrid');
+      const recentComplaints = document.getElementById('recentComplaints');
+      const recentNews = document.getElementById('recentNews');
+
+      try {
+        const res = await fetch('/api/admin/dashboard');
+        if (!res.ok) throw new Error();
+        const d = await res.json();
+
+        // Populate Cards
+        statsGrid.innerHTML = `
+          <div class="stat-card">
+            <div class="stat-card-icon news">📰</div>
+            <div class="stat-card-info">
+              <span class="stat-card-num">${d.totalBerita || 0}</span>
+              <span class="stat-card-label">Total Berita</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon gallery">🖼️</div>
+            <div class="stat-card-info">
+              <span class="stat-card-num">${d.totalGaleri || 0}</span>
+              <span class="stat-card-label">Galeri Foto</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon announcement">📢</div>
+            <div class="stat-card-info">
+              <span class="stat-card-num">${d.totalPengumuman || 0}</span>
+              <span class="stat-card-label">Pengumuman</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon report">📨</div>
+            <div class="stat-card-info">
+              <span class="stat-card-num">${d.totalPengaduan || 0}</span>
+              <span class="stat-card-label">Pengaduan Baru</span>
+            </div>
+          </div>
+        `;
+
+        // Populate Recent Complaints
+        if (!d.pengaduanTerbaru || !d.pengaduanTerbaru.length) {
+          recentComplaints.innerHTML = `<p style="padding:15px;color:var(--gray-600)">Tidak ada pengaduan masuk.</p>`;
+        } else {
+          recentComplaints.innerHTML = `
+            <table class="db-table" style="font-size:0.8rem">
+              <thead>
+                <tr>
+                  <th>Nama</th>
+                  <th>Subjek</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${d.pengaduanTerbaru.map(c => `
+                  <tr>
+                    <td><strong>${c.nama}</strong></td>
+                    <td>${c.subjek}</td>
+                    <td><span class="badge badge-${c.status === 'baru' ? 'danger' : (c.status === 'proses' ? 'warning' : 'primary')}">${c.status.toUpperCase()}</span></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          `;
+        }
+
+        // Populate Recent News
+        if (!d.beritaTerbaru || !d.beritaTerbaru.length) {
+          recentNews.innerHTML = `<p style="padding:15px;color:var(--gray-600)">Belum ada berita yang diunggah.</p>`;
+        } else {
+          recentNews.innerHTML = `
+            <table class="db-table" style="font-size:0.8rem">
+              <thead>
+                <tr>
+                  <th>Judul</th>
+                  <th>Kategori</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${d.beritaTerbaru.map(n => `
+                  <tr>
+                    <td><strong>${n.judul}</strong></td>
+                    <td><span class="badge badge-primary">${n.kategori}</span></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          `;
+        }
+      } catch (err) {
+        statsGrid.innerHTML = `<p style="color:var(--danger)">Gagal memuat data overview</p>`;
+      }
+    }
+
+    // ==========================================
+    // KELOLA BERITA LOGIC
+    // ==========================================
+    async function loadBerita() {
+      try {
+        const res = await fetch('/api/admin/berita');
+        if (!res.ok) throw new Error();
+        dataBerita = await res.json();
+        const tbody = document.getElementById('listBerita');
+        if (!dataBerita.length) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--gray-600)">Belum ada berita.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = dataBerita.map(b => `
+          <tr>
+            <td>${b.gambar ? `<img src="${b.gambar}" style="width:60px;height:40px;object-fit:cover;border-radius:4px">` : '<span style="color:var(--gray-400);font-size:0.75rem">No image</span>'}</td>
+            <td><strong>${b.judul}</strong></td>
+            <td><span class="badge badge-primary">${b.kategori}</span></td>
+            <td><span class="badge ${b.status === 'published' ? 'badge-success' : 'badge-secondary'}">${b.status.toUpperCase()}</span></td>
+            <td>${b.views || 0}</td>
+            <td>${new Date(b.tanggal).toLocaleDateString('id-ID')}</td>
+            <td>
+              <div class="actions-cell">
+                <button class="btn btn-warning btn-xs" onclick="editBerita(${b.id})">✏️ Edit</button>
+                <button class="btn btn-danger btn-xs" onclick="deleteBerita(${b.id})">🗑️ Hapus</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        showAlert('Gagal memuat berita', false);
+      }
+    }
+
+    function openBeritaModal() {
+      document.getElementById('formBerita').reset();
+      document.getElementById('berita_id').value = '';
+      document.getElementById('modalBeritaTitle').textContent = 'Tambah Berita Baru';
+      openModal('modalBerita');
+    }
+
+    function editBerita(id) {
+      const b = dataBerita.find(item => item.id === id);
+      if (!b) return;
+      document.getElementById('berita_id').value = b.id;
+      document.getElementById('berita_judul').value = b.judul;
+      document.getElementById('berita_kategori').value = b.kategori;
+      document.getElementById('berita_status').value = b.status;
+      document.getElementById('berita_ringkasan').value = b.ringkasan || '';
+      document.getElementById('berita_konten').value = b.konten || '';
+      document.getElementById('berita_gambar').value = ''; // Reset file input
+      document.getElementById('modalBeritaTitle').textContent = 'Edit Berita';
+      openModal('modalBerita');
+    }
+
+    document.getElementById('formBerita').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('berita_id').value;
+      const formData = new FormData(e.target);
+      
+      const url = id ? `/api/admin/berita/${id}` : '/api/admin/berita';
+      const method = id ? 'PUT' : 'POST';
+      
+      try {
+        const res = await fetch(url, { method: method, body: formData });
+        const d = await res.json();
+        if (res.ok && d.success) {
+          showAlert(id ? 'Berita berhasil diperbarui!' : 'Berita baru berhasil ditambahkan!');
+          closeModal('modalBerita');
+          loadBerita();
+        } else {
+          showAlert(d.error || 'Gagal menyimpan berita', false);
+        }
+      } catch (err) {
+        showAlert('Gagal terhubung ke server', false);
+      }
+    });
+
+    async function deleteBerita(id) {
+      if (!confirm('Apakah Anda yakin ingin menghapus berita ini?')) return;
+      try {
+        const res = await fetch(`/api/admin/berita/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showAlert('Berita berhasil dihapus!');
+          loadBerita();
+        } else {
+          showAlert('Gagal menghapus berita', false);
+        }
+      } catch (e) {
+        showAlert('Gagal terhubung ke server', false);
+      }
+    }
+
+    // ==========================================
+    // KELOLA GALERI LOGIC
+    // ==========================================
+    async function loadGaleri() {
+      try {
+        const res = await fetch('/api/galeri');
+        if (!res.ok) throw new Error();
+        dataGaleri = await res.json();
+        const tbody = document.getElementById('listGaleri');
+        if (!dataGaleri.length) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--gray-600)">Belum ada foto galeri.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = dataGaleri.map(g => `
+          <tr>
+            <td>${g.gambar ? `<img src="${g.gambar}" style="width:60px;height:40px;object-fit:cover;border-radius:4px">` : '<span style="color:var(--gray-400);font-size:0.75rem">No image</span>'}</td>
+            <td><strong>${g.judul}</strong></td>
+            <td>${g.deskripsi || '-'}</td>
+            <td>${new Date(g.tanggal).toLocaleDateString('id-ID')}</td>
+            <td>
+              <div class="actions-cell">
+                <button class="btn btn-warning btn-xs" onclick="editGaleri(${g.id})">✏️ Edit</button>
+                <button class="btn btn-danger btn-xs" onclick="deleteGaleri(${g.id})">🗑️ Hapus</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        showAlert('Gagal memuat galeri', false);
+      }
+    }
+
+    function openGaleriModal() {
+      document.getElementById('formGaleri').reset();
+      document.getElementById('galeri_id').value = '';
+      document.getElementById('modalGaleriTitle').textContent = 'Tambah Foto Baru';
+      openModal('modalGaleri');
+    }
+
+    function editGaleri(id) {
+      const g = dataGaleri.find(item => item.id === id);
+      if (!g) return;
+      document.getElementById('galeri_id').value = g.id;
+      document.getElementById('galeri_judul').value = g.judul;
+      document.getElementById('galeri_deskripsi').value = g.deskripsi || '';
+      document.getElementById('galeri_gambar').value = '';
+      document.getElementById('modalGaleriTitle').textContent = 'Edit Foto Galeri';
+      openModal('modalGaleri');
+    }
+
+    document.getElementById('formGaleri').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('galeri_id').value;
+      const formData = new FormData(e.target);
+      const url = id ? `/api/admin/galeri/${id}` : '/api/admin/galeri';
+      const method = id ? 'PUT' : 'POST';
+      try {
+        const res = await fetch(url, { method: method, body: formData });
+        const d = await res.json();
+        if (res.ok && d.success) {
+          showAlert(id ? 'Foto galeri diperbarui!' : 'Foto baru berhasil ditambahkan!');
+          closeModal('modalGaleri');
+          loadGaleri();
+        } else {
+          showAlert(d.error || 'Gagal menyimpan foto galeri', false);
+        }
+      } catch (err) {
+        showAlert('Gagal terhubung ke server', false);
+      }
+    });
+
+    async function deleteGaleri(id) {
+      if (!confirm('Apakah Anda yakin ingin menghapus foto galeri ini?')) return;
+      try {
+        const res = await fetch(`/api/admin/galeri/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showAlert('Foto galeri berhasil dihapus!');
+          loadGaleri();
+        } else {
+          showAlert('Gagal menghapus foto', false);
+        }
+      } catch (e) {
+        showAlert('Gagal terhubung ke server', false);
+      }
+    }
+
+    // ==========================================
+    // KELOLA PENGUMUMAN LOGIC
+    // ==========================================
+    async function loadPengumuman() {
+      try {
+        const res = await fetch('/api/pengumuman');
+        if (!res.ok) throw new Error();
+        dataPengumuman = await res.json();
+        const tbody = document.getElementById('listPengumuman');
+        if (!dataPengumuman.length) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--gray-600)">Belum ada pengumuman.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = dataPengumuman.map(p => `
+          <tr>
+            <td><strong>${p.judul}</strong></td>
+            <td>${p.konten ? (p.konten.length > 80 ? p.konten.substring(0, 77) + '...' : p.konten) : '-'}</td>
+            <td>${p.tanggal_acara || '-'}</td>
+            <td>${p.lokasi || '-'}</td>
+            <td>
+              <div class="actions-cell">
+                <button class="btn btn-warning btn-xs" onclick="editPengumuman(${p.id})">✏️ Edit</button>
+                <button class="btn btn-danger btn-xs" onclick="deletePengumuman(${p.id})">🗑️ Hapus</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        showAlert('Gagal memuat pengumuman', false);
+      }
+    }
+
+    function openPengumumanModal() {
+      document.getElementById('formPengumuman').reset();
+      document.getElementById('pengumuman_id').value = '';
+      document.getElementById('modalPengumumanTitle').textContent = 'Tambah Pengumuman Baru';
+      openModal('modalPengumuman');
+    }
+
+    function editPengumuman(id) {
+      const p = dataPengumuman.find(item => item.id === id);
+      if (!p) return;
+      document.getElementById('pengumuman_id').value = p.id;
+      document.getElementById('pengumuman_judul').value = p.judul;
+      document.getElementById('pengumuman_konten').value = p.konten || '';
+      document.getElementById('pengumuman_tanggal_acara').value = p.tanggal_acara || '';
+      document.getElementById('pengumuman_lokasi').value = p.lokasi || '';
+      document.getElementById('modalPengumumanTitle').textContent = 'Edit Pengumuman';
+      openModal('modalPengumuman');
+    }
+
+    document.getElementById('formPengumuman').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('pengumuman_id').value;
+      const payload = {
+        judul: document.getElementById('pengumuman_judul').value,
+        konten: document.getElementById('pengumuman_konten').value,
+        tanggal_acara: document.getElementById('pengumuman_tanggal_acara').value,
+        lokasi: document.getElementById('pengumuman_lokasi').value
+      };
+      const url = id ? `/api/admin/pengumuman/${id}` : '/api/admin/pengumuman';
+      const method = id ? 'PUT' : 'POST';
+      try {
+        const res = await fetch(url, {
+          method: method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const d = await res.json();
+        if (res.ok && d.success) {
+          showAlert(id ? 'Pengumuman berhasil diperbarui!' : 'Pengumuman baru berhasil ditambahkan!');
+          closeModal('modalPengumuman');
+          loadPengumuman();
+        } else {
+          showAlert(d.error || 'Gagal menyimpan pengumuman', false);
+        }
+      } catch (err) {
+        showAlert('Gagal terhubung ke server', false);
+      }
+    });
+
+    async function deletePengumuman(id) {
+      if (!confirm('Apakah Anda yakin ingin menghapus pengumuman ini?')) return;
+      try {
+        const res = await fetch(`/api/admin/pengumuman/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showAlert('Pengumuman berhasil dihapus!');
+          loadPengumuman();
+        } else {
+          showAlert('Gagal menghapus pengumuman', false);
+        }
+      } catch (e) {
+        showAlert('Gagal terhubung ke server', false);
+      }
+    }
+
+    // ==========================================
+    // KELOLA APARATUR LOGIC
+    // ==========================================
+    async function loadAparatur() {
+      try {
+        const res = await fetch('/api/aparatur');
+        if (!res.ok) throw new Error();
+        dataAparatur = await res.json();
+        const tbody = document.getElementById('listAparatur');
+        if (!dataAparatur.length) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--gray-600)">Belum ada data aparatur.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = dataAparatur.map(a => `
+          <tr>
+            <td>${a.urutan || 99}</td>
+            <td>${a.foto ? `<img src="${a.foto}" style="width:40px;height:40px;object-fit:cover;border-radius:50%">` : '<div style="width:40px;height:40px;background:var(--gray-200);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--gray-600)">Foto</div>'}</td>
+            <td><strong>${a.nama}</strong></td>
+            <td>${a.jabatan}</td>
+            <td>${a.nip || '-'}</td>
+            <td>
+              <div class="actions-cell">
+                <button class="btn btn-warning btn-xs" onclick="editAparatur(${a.id})">✏️ Edit</button>
+                <button class="btn btn-danger btn-xs" onclick="deleteAparatur(${a.id})">🗑️ Hapus</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        showAlert('Gagal memuat aparatur', false);
+      }
+    }
+
+    function openAparaturModal() {
+      document.getElementById('formAparatur').reset();
+      document.getElementById('aparatur_id').value = '';
+      document.getElementById('aparatur_urutan').value = '99';
+      document.getElementById('modalAparaturTitle').textContent = 'Tambah Aparatur Desa';
+      openModal('modalAparatur');
+    }
+
+    function editAparatur(id) {
+      const a = dataAparatur.find(item => item.id === id);
+      if (!a) return;
+      document.getElementById('aparatur_id').value = a.id;
+      document.getElementById('aparatur_nama').value = a.nama;
+      document.getElementById('aparatur_jabatan').value = a.jabatan;
+      document.getElementById('aparatur_nip').value = a.nip || '-';
+      document.getElementById('aparatur_urutan').value = a.urutan || 99;
+      document.getElementById('aparatur_foto').value = '';
+      document.getElementById('modalAparaturTitle').textContent = 'Edit Data Aparatur';
+      openModal('modalAparatur');
+    }
+
+    document.getElementById('formAparatur').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('aparatur_id').value;
+      const formData = new FormData(e.target);
+      const url = id ? `/api/admin/aparatur/${id}` : '/api/admin/aparatur';
+      const method = id ? 'PUT' : 'POST';
+      try {
+        const res = await fetch(url, { method: method, body: formData });
+        const d = await res.json();
+        if (res.ok && d.success) {
+          showAlert(id ? 'Data aparatur berhasil diperbarui!' : 'Aparatur baru berhasil ditambahkan!');
+          closeModal('modalAparatur');
+          loadAparatur();
+        } else {
+          showAlert(d.error || 'Gagal menyimpan data aparatur', false);
+        }
+      } catch (err) {
+        showAlert('Gagal terhubung ke server', false);
+      }
+    });
+
+    async function deleteAparatur(id) {
+      if (!confirm('Apakah Anda yakin ingin menghapus aparatur ini?')) return;
+      try {
+        const res = await fetch(`/api/admin/aparatur/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showAlert('Data aparatur berhasil dihapus!');
+          loadAparatur();
+        } else {
+          showAlert('Gagal menghapus data', false);
+        }
+      } catch (e) {
+        showAlert('Gagal terhubung ke server', false);
+      }
+    }
+
+    // ==========================================
+    // KELOLA PEMBANGUNAN LOGIC
+    // ==========================================
+    async function loadPembangunan() {
+      try {
+        const res = await fetch('/api/pembangunan');
+        if (!res.ok) throw new Error();
+        dataPembangunan = await res.json();
+        const tbody = document.getElementById('listPembangunan');
+        if (!dataPembangunan.length) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--gray-600)">Belum ada data pembangunan.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = dataPembangunan.map(p => `
+          <tr>
+            <td><strong>${p.nama}</strong></td>
+            <td>${p.anggaran}</td>
+            <td>${p.sumber_dana}</td>
+            <td>${p.tahun}</td>
+            <td>${p.lokasi}</td>
+            <td><span class="badge ${p.status === 'selesai' ? 'badge-success' : (p.status === 'proses' ? 'badge-warning' : 'badge-secondary')}">${p.status.toUpperCase()}</span></td>
+            <td>
+              <div class="actions-cell">
+                <button class="btn btn-warning btn-xs" onclick="editPembangunan(${p.id})">✏️ Edit</button>
+                <button class="btn btn-danger btn-xs" onclick="deletePembangunan(${p.id})">🗑️ Hapus</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        showAlert('Gagal memuat data pembangunan', false);
+      }
+    }
+
+    // ==========================================
+    // KELOLA PEMBANGUNAN EDIT / DELETE HANDLERS
+    // ==========================================
+    function openPembangunanModal() {
+      document.getElementById('formPembangunan').reset();
+      document.getElementById('pembangunan_id').value = '';
+      document.getElementById('pembangunan_tahun').value = new Date().getFullYear();
+      document.getElementById('modalPembangunanTitle').textContent = 'Tambah Proyek Baru';
+      openModal('modalPembangunan');
+    }
+
+    function editPembangunan(id) {
+      const p = dataPembangunan.find(item => item.id === id);
+      if (!p) return;
+      document.getElementById('pembangunan_id').value = p.id;
+      document.getElementById('pembangunan_nama').value = p.nama;
+      document.getElementById('pembangunan_deskripsi').value = p.deskripsi || '';
+      document.getElementById('pembangunan_anggaran').value = p.anggaran;
+      document.getElementById('pembangunan_sumber_dana').value = p.sumber_dana;
+      document.getElementById('pembangunan_tahun').value = p.tahun;
+      document.getElementById('pembangunan_lokasi').value = p.lokasi;
+      document.getElementById('pembangunan_status').value = p.status;
+      document.getElementById('modalPembangunanTitle').textContent = 'Edit Data Proyek';
+      openModal('modalPembangunan');
+    }
+
+    document.getElementById('formPembangunan').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('pembangunan_id').value;
+      const payload = {
+        nama: document.getElementById('pembangunan_nama').value,
+        deskripsi: document.getElementById('pembangunan_deskripsi').value,
+        anggaran: document.getElementById('pembangunan_anggaran').value,
+        sumber_dana: document.getElementById('pembangunan_sumber_dana').value,
+        tahun: parseInt(document.getElementById('pembangunan_tahun').value),
+        lokasi: document.getElementById('pembangunan_lokasi').value,
+        status: document.getElementById('pembangunan_status').value
+      };
+      const url = id ? `/api/admin/pembangunan/${id}` : '/api/admin/pembangunan';
+      const method = id ? 'PUT' : 'POST';
+      try {
+        const res = await fetch(url, {
+          method: method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const d = await res.json();
+        if (res.ok && d.success) {
+          showAlert(id ? 'Data proyek berhasil diperbarui!' : 'Proyek baru berhasil ditambahkan!');
+          closeModal('modalPembangunan');
+          loadPembangunan();
+        } else {
+          showAlert(d.error || 'Gagal menyimpan proyek', false);
+        }
+      } catch (err) {
+        showAlert('Gagal terhubung ke server', false);
+      }
+    });
+
+    async function deletePembangunan(id) {
+      if (!confirm('Apakah Anda yakin ingin menghapus data pembangunan ini?')) return;
+      try {
+        const res = await fetch(`/api/admin/pembangunan/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showAlert('Data proyek berhasil dihapus!');
+          loadPembangunan();
+        } else {
+          showAlert('Gagal menghapus proyek', false);
+        }
+      } catch (e) {
+        showAlert('Gagal terhubung ke server', false);
+      }
+    }
+
+    // ==========================================
+    // KELOLA PENGADUAN LOGIC
+    // ==========================================
+    async function loadPengaduan() {
+      try {
+        const res = await fetch('/api/admin/pengaduan');
+        if (!res.ok) throw new Error();
+        dataPengaduan = await res.json();
+        const tbody = document.getElementById('listPengaduan');
+        if (!dataPengaduan.length) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--gray-600)">Belum ada laporan pengaduan masuk.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = dataPengaduan.map(p => `
+          <tr>
+            <td>${new Date(p.tanggal).toLocaleDateString('id-ID')}</td>
+            <td><strong>${p.nama}</strong></td>
+            <td>${p.no_hp || '-'}<br><span style="font-size:0.75rem;color:var(--gray-400)">${p.email || '-'}</span></td>
+            <td>${p.subjek}</td>
+            <td><span class="badge ${p.status === 'baru' ? 'badge-danger' : (p.status === 'proses' ? 'badge-warning' : 'badge-success')}">${p.status.toUpperCase()}</span></td>
+            <td>
+              <div class="actions-cell">
+                <button class="btn btn-outline btn-xs" onclick="viewPengaduan(${p.id})">👁️ Baca & Status</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        showAlert('Gagal memuat pengaduan', false);
+      }
+    }
+
+    let activePengaduanId = null;
+
+    function viewPengaduan(id) {
+      const p = dataPengaduan.find(item => item.id === id);
+      if (!p) return;
+      activePengaduanId = p.id;
+      document.getElementById('pengaduan_view_nama').textContent = p.nama;
+      document.getElementById('pengaduan_view_email').textContent = p.email || '-';
+      document.getElementById('pengaduan_view_hp').textContent = p.no_hp || '-';
+      document.getElementById('pengaduan_view_subjek').textContent = p.subjek;
+      document.getElementById('pengaduan_view_tanggal').textContent = new Date(p.tanggal).toLocaleString('id-ID');
+      document.getElementById('pengaduan_view_pesan').textContent = p.pesan;
+      document.getElementById('pengaduan_update_status').value = p.status;
+      openModal('modalPengaduan');
+    }
+
+    document.getElementById('btnUpdatePengaduanStatus').addEventListener('click', async () => {
+      if (!activePengaduanId) return;
+      const status = document.getElementById('pengaduan_update_status').value;
+      try {
+        const res = await fetch(`/api/admin/pengaduan/${activePengaduanId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        const d = await res.json();
+        if (res.ok && d.success) {
+          showAlert('Status pengaduan berhasil diperbarui!');
+          closeModal('modalPengaduan');
+          loadPengaduan();
+          loadOverviewData();
+        } else {
+          showAlert('Gagal memperbarui status pengaduan', false);
+        }
+      } catch (e) {
+        showAlert('Gagal terhubung ke server', false);
+      }
+    });
+
+    // ==========================================
+    // STATISTIK LOGIC
+    // ==========================================
+    window.switchSubTab = function(tabId) {
+      document.querySelectorAll('.sub-tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.sub-tab-content').forEach(content => content.classList.remove('active'));
+      
+      const clickedBtn = Array.from(document.querySelectorAll('.sub-tab-btn')).find(btn => btn.getAttribute('onclick').includes(tabId));
+      if (clickedBtn) clickedBtn.classList.add('active');
+      
+      const content = document.getElementById(tabId);
+      if (content) content.classList.add('active');
+    };
+
+    async function loadStatistikData() {
+      try {
+        const res = await fetch('/api/statistik?t=' + Date.now());
+        const data = await res.json();
+        
+        document.getElementById('jumlah_penduduk').value = data.jumlah_penduduk || 0;
+        document.getElementById('jumlah_kk').value = data.jumlah_kk || 0;
+        document.getElementById('laki_laki').value = data.laki_laki || 0;
+        document.getElementById('perempuan').value = data.perempuan || 0;
+        document.getElementById('jumlah_dusun').value = data.jumlah_dusun || 3;
+        document.getElementById('luas_wilayah').value = data.luas_wilayah || '245 Ha';
+        
+        // Populate demographics using data attributes
+        const inputs = document.querySelectorAll('#statistikForm input[data-kategori]');
+        inputs.forEach(input => {
+          const kat = input.getAttribute('data-kategori');
+          const label = input.getAttribute('data-label');
+          const gender = input.getAttribute('data-gender'); // Only for 'umur'
+          
+          if (data.demografi && data.demografi[kat]) {
+            const matched = data.demografi[kat].find(item => item.label === label);
+            if (matched) {
+              if (gender) {
+                input.value = gender === 'pria' ? (matched.pria || 0) : (matched.wanita || 0);
+              } else {
+                input.value = matched.total || 0;
+              }
+            }
+          }
+        });
+      } catch (e) {
+        showAlert('Gagal memuat data statistik desa', false);
+      }
+    }
+
+    document.getElementById('statistikForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Basic stats payload
+      const basicPayload = {
+        jumlah_penduduk: parseInt(document.getElementById('jumlah_penduduk').value),
+        jumlah_kk: parseInt(document.getElementById('jumlah_kk').value),
+        laki_laki: parseInt(document.getElementById('laki_laki').value),
+        perempuan: parseInt(document.getElementById('perempuan').value),
+        jumlah_dusun: parseInt(document.getElementById('jumlah_dusun').value),
+        luas_wilayah: document.getElementById('luas_wilayah').value
+      };
+
+      // Validasi sederhana
+      if (basicPayload.laki_laki + basicPayload.perempuan !== basicPayload.jumlah_penduduk) {
+        if (!confirm('Peringatan: Jumlah laki-laki dan perempuan tidak sama dengan total penduduk. Lanjutkan menyimpan?')) {
+          return;
+        }
+      }
+
+      // Gather demographics array
+      const demografiData = [];
+      const inputs = document.querySelectorAll('#statistikForm input[data-kategori]');
+      const ageGroups = {};
+
+      inputs.forEach(input => {
+        const kat = input.getAttribute('data-kategori');
+        const label = input.getAttribute('data-label');
+        const gender = input.getAttribute('data-gender');
+        const val = parseInt(input.value) || 0;
+        
+        if (kat === 'umur') {
+          if (!ageGroups[label]) ageGroups[label] = { pria: 0, wanita: 0 };
+          if (gender === 'pria') ageGroups[label].pria = val;
+          else ageGroups[label].wanita = val;
+        } else {
+          demografiData.push({
+            kategori: kat,
+            label: label,
+            pria: 0,
+            wanita: 0,
+            total: val
+          });
+        }
+      });
+
+      // Add age groups to demographics array
+      for (const [label, vals] of Object.entries(ageGroups)) {
+        demografiData.push({
+          kategori: 'umur',
+          label: label,
+          pria: vals.pria,
+          wanita: vals.wanita,
+          total: vals.pria + vals.wanita
+        });
+      }
+
+      try {
+        // Save basic stats
+        const resBasic = await fetch('/api/admin/statistik', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(basicPayload)
+        });
+
+        // Save demographic stats
+        const resDemo = await fetch('/api/admin/demografi', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(demografiData)
+        });
+
+        if (resBasic.ok && resDemo.ok) {
+          showAlert('Seluruh data statistik desa berhasil diperbarui!');
+          loadStatistikData(); // reload
+        } else {
+          throw new Error('Gagal menyimpan');
+        }
+      } catch (err) {
+        showAlert('Gagal menyimpan data statistik', false);
+      }
+    });
+
+    // ==========================================
+    // DATABASE VIEWER LOGIC
+    // ==========================================
+    const tableSelect = document.getElementById('tableSelect');
+    const dbTableContainer = document.getElementById('dbTableContainer');
+
+    async function loadDatabaseTable() {
+      const selectedTable = tableSelect.value;
+      dbTableContainer.innerHTML = '<div class="loading-wrapper"><div class="spinner"></div><p style="font-size:0.85rem;color:var(--gray-600)">Mengambil data dari database...</p></div>';
+
+      try {
+        const res = await fetch(`/api/admin/database/tables/${selectedTable}`);
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+
+        if (!data.records || !data.records.length) {
+          dbTableContainer.innerHTML = `<p style="text-align:center;padding:40px;color:var(--gray-600)">Tabel <strong>${selectedTable}</strong> kosong (tidak ada baris data).</p>`;
+          return;
+        }
+
+        // Build headers
+        const headersHtml = data.columns.map(col => `<th>${col.name} <span style="font-size:0.65rem;color:var(--gray-400);font-weight:normal">(${col.type})</span></th>`).join('');
+
+        // Build rows
+        const rowsHtml = data.records.map(row => {
+          const cellsHtml = data.columns.map(col => {
+            let val = row[col.name];
+            
+            // Format null or empty
+            if (val === null || val === undefined) {
+              return '<td style="color:var(--gray-400);font-style:italic">NULL</td>';
+            }
+            
+            // Format HTML content or very long descriptions
+            const valStr = String(val);
+            if (valStr.length > 80) {
+              const isHtml = valStr.includes('<') && valStr.includes('>');
+              const displayVal = isHtml ? valStr.replace(/<[^>]*>/g, '').substring(0, 77) + '...' : valStr.substring(0, 77) + '...';
+              return `<td class="full-text" title="${valStr.replace(/"/g, '&quot;')}">${displayVal}</td>`;
+            }
+            
+            return `<td>${val}</td>`;
+          }).join('');
+
+          return `<tr>${cellsHtml}</tr>`;
+        }).join('');
+
+        dbTableContainer.innerHTML = `
+          <table class="db-table">
+            <thead>
+              <tr>
+                ${headersHtml}
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml}
+            </tbody>
+          </table>
+        `;
+      } catch (err) {
+        dbTableContainer.innerHTML = `<p style="text-align:center;padding:40px;color:var(--danger)">Gagal mengambil data untuk tabel <strong>${selectedTable}</strong>.</p>`;
+      }
+    }
+
+    tableSelect.addEventListener('change', loadDatabaseTable);
+    document.getElementById('refreshTableBtn').addEventListener('click', loadDatabaseTable);
+
+  </script>
+</body>
+</html>

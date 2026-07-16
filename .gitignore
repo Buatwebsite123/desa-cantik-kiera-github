@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Database files (jangan upload database asli ke GitHub)
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Uploads folder (foto/file yang diupload user)
+uploads/*
+!uploads/.gitkeep
+
+# Environment & secrets
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+*.log

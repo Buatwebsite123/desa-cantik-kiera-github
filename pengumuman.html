@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengumuman - Desa Persiapan Kiera</title>
+  <meta name="description" content="Pengumuman dan agenda kegiatan Desa Persiapan Kiera.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="container">
+    <div class="top-bar-info"><span>📍 Desa Persiapan Kiera, Kec. Moa, Kab. Maluku Barat Daya, Maluku</span></div>
+    <div class="top-bar-links"><a href="layanan.html">📋 Pengaduan</a><a href="admin/login.html">🔐 Admin</a></div>
+  </div>
+</div>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="uploads/logo.png" alt="Logo Desa Persiapan Kiera">
+      <div class="nav-logo-text">
+        <div class="desa-name">Desa Persiapan Kiera</div>
+        <div class="desa-sub">Website Resmi Pemerintah Desa</div>
+      </div>
+    </a>
+    <ul class="nav-menu" id="nav-menu">
+      <li class="nav-item"><a href="index.html" class="nav-link">🏠 Beranda</a></li>
+      <li class="nav-item"><a href="profil.html" class="nav-link">📋 Profil</a></li>
+      <li class="nav-item"><a href="berita.html" class="nav-link">📰 Berita</a></li>
+      <li class="nav-item"><a href="galeri.html" class="nav-link">🖼️ Galeri</a></li>
+      <li class="nav-item"><a href="pengumuman.html" class="nav-link active">📢 Pengumuman</a></li>
+      <li class="nav-item"><a href="statistik.html" class="nav-link">📊 Statistik</a></li>
+      <li class="nav-item"><a href="layanan.html" class="nav-link">🤝 Layanan</a></li>
+    </ul>
+    <div class="nav-actions"><a href="admin/login.html" class="btn-admin">🔐 Admin</a></div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>📢 Pengumuman & Agenda</h1>
+    <p>Informasi penting dan jadwal kegiatan Desa Persiapan Kiera</p>
+    <div class="breadcrumb">
+      <a href="index.html">🏠 Beranda</a><span class="sep">›</span><span>Pengumuman</span>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start">
+      <!-- Main List -->
+      <div>
+        <div class="section-header" style="text-align:left;margin-bottom:32px">
+          <span class="section-tag">📢 Terbaru</span>
+          <h2 class="section-title" style="text-align:left">Semua Pengumuman</h2>
+        </div>
+        <div id="pengumuman-container">
+          <div class="loading"><div class="spinner"></div></div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div style="position:sticky;top:90px">
+        <div style="background:#fff;border-radius:var(--radius-xl);padding:28px;box-shadow:var(--shadow-sm);border:1px solid var(--gray-200);margin-bottom:24px">
+          <h3 style="font-size:.95rem;font-weight:700;color:var(--text-dark);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--green-pale)">📋 Jam Layanan</h3>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;justify-content:space-between;font-size:.85rem">
+              <span style="color:var(--gray-600)">Senin – Jumat</span>
+              <span style="font-weight:700;color:var(--green-main)">08.00 – 14.00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:.85rem">
+              <span style="color:var(--gray-600)">Sabtu – Minggu</span>
+              <span style="font-weight:700;color:#ef4444">Tutup</span>
+            </div>
+            <div style="background:var(--green-pale);border-radius:10px;padding:12px;font-size:.82rem;color:var(--green-dark);margin-top:4px">
+              💡 Untuk keperluan mendesak, hubungi perangkat desa melalui kontak yang tersedia.
+            </div>
+          </div>
+        </div>
+        <div style="background:linear-gradient(135deg,var(--green-dark),var(--green-main));border-radius:var(--radius-xl);padding:28px;color:white;text-align:center">
+          <div style="font-size:2rem;margin-bottom:12px">📨</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">Punya Pengaduan?</h3>
+          <p style="font-size:.82rem;color:rgba(255,255,255,.8);margin-bottom:16px">Sampaikan aspirasi dan keluhan Anda kepada pemerintah desa</p>
+          <a href="layanan.html" class="btn btn-gold btn-sm" style="width:100%;justify-content:center">Kirim Sekarang</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><img src="uploads/logo.png" alt="Logo Desa Persiapan Kiera"><div><div class="logo-text">Desa Persiapan Kiera</div><div class="logo-sub">Website Resmi</div></div></div><p>Maju bersama membangun desa yang sejahtera.</p></div>
+      <div class="footer-col"><h4>📌 Navigasi</h4><div class="footer-links"><a href="index.html">🏠 Beranda</a><a href="berita.html">📰 Berita</a><a href="pengumuman.html">📢 Pengumuman</a><a href="layanan.html">🤝 Layanan</a></div></div>
+      <div class="footer-col"><h4>📞 Kontak</h4><div class="footer-contact"><div class="footer-contact-item"><span class="icon">📍</span><span>Desa Persiapan Kiera, Kecamatan Moa, Kabupaten Maluku Barat Daya, Maluku</span></div></div></div>
+      <div class="footer-col"><h4>🔗 Tautan</h4><div class="footer-links"><a href="admin/login.html">🔐 Admin</a></div></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Desa Persiapan Kiera.</span></div>
+  </div>
+</footer>
+<button class="back-to-top" id="backToTop">↑</button>
+
+<script src="js/main.js"></script>
+<script>
+  async function loadPengumuman() {
+    const c = document.getElementById('pengumuman-container');
+    try {
+      const res = await fetch('/api/pengumuman');
+      const data = await res.json();
+      if (!data.length) {
+        c.innerHTML = `<div style="text-align:center;padding:60px;color:var(--gray-600)"><div style="font-size:3rem;margin-bottom:12px">📭</div><p>Belum ada pengumuman</p></div>`;
+        return;
+      }
+      const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des'];
+      const monthsFull = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+      c.innerHTML = `
+        <div class="pengumuman-list fade-up">
+          ${data.map(p => {
+            const d = p.tanggal_acara ? new Date(p.tanggal_acara) : new Date(p.tanggal);
+            return `
+              <div class="pengumuman-card" style="cursor:default;padding:24px 28px">
+                <div class="pengumuman-date-box">
+                  <div class="day">${d.getDate()}</div>
+                  <div class="month">${months[d.getMonth()]}</div>
+                  <div style="font-size:.65rem;color:var(--gray-600);font-weight:600">${d.getFullYear()}</div>
+                </div>
+                <div class="pengumuman-body" style="flex:1">
+                  <h3>${p.judul}</h3>
+                  <p style="-webkit-line-clamp:unset;overflow:visible">${p.konten || ''}</p>
+                  <div style="display:flex;gap:16px;margin-top:12px;flex-wrap:wrap">
+                    ${p.tanggal_acara ? `<span style="font-size:.78rem;color:var(--green-main);font-weight:600;display:flex;align-items:center;gap:4px">📅 ${d.getDate()} ${monthsFull[d.getMonth()]} ${d.getFullYear()}</span>` : ''}
+                    ${p.lokasi ? `<span style="font-size:.78rem;color:var(--gray-600);display:flex;align-items:center;gap:4px">📍 ${p.lokasi}</span>` : ''}
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+      setTimeout(() => document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible')), 100);
+    } catch(e) {
+      c.innerHTML = '<p style="text-align:center;color:#ef4444;padding:40px">Gagal memuat pengumuman</p>';
+    }
+  }
+  loadPengumuman();
+</script>
+</body>
+</html>

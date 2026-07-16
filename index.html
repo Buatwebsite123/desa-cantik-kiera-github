@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Resmi Desa Persiapan Kiera</title>
+  <meta name="description"
+    content="Website resmi Desa Persiapan Kiera - Informasi pemerintahan, berita, galeri, dan layanan masyarakat Desa Persiapan Kiera.">
+  <meta name="keywords" content="Desa Persiapan Kiera, website desa, pemerintahan desa, berita desa">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="uploads/logo.png">
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-info">
+        <span>📍 Desa Persiapan Kiera, Kec. Moa, Kab. Maluku Barat Daya, Maluku</span>
+      </div>
+      <div class="top-bar-links">
+        <a href="layanan.html">📋 Pengaduan</a>
+        <a href="admin/login.html">🔐 Login Admin</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="uploads/logo.png" alt="Logo Desa Persiapan Kiera">
+        <div class="nav-logo-text">
+          <div class="desa-name">Desa Persiapan Kiera</div>
+          <div class="desa-sub">Website Resmi Pemerintah Desa</div>
+        </div>
+      </a>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link active">🏠 Beranda</a></li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">📋 Profil <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
+            </svg></a>
+          <div class="dropdown-menu">
+            <a href="profil.html">📖 Profil Desa</a>
+            <a href="profil.html#sejarah">🏛️ Sejarah Desa</a>
+            <a href="profil.html#visi-misi">🎯 Visi & Misi</a>
+            <a href="pemerintah.html">👥 Aparatur Desa</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="berita.html" class="nav-link">📰 Berita</a></li>
+        <li class="nav-item"><a href="galeri.html" class="nav-link">🖼️ Galeri</a></li>
+        <li class="nav-item"><a href="pengumuman.html" class="nav-link">📢 Pengumuman</a></li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">📊 Data <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
+            </svg></a>
+          <div class="dropdown-menu">
+            <a href="statistik.html">📈 Statistik Penduduk</a>
+            <a href="pembangunan.html">🏗️ Pembangunan</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="layanan.html" class="nav-link">🤝 Layanan</a></li>
+        <li class="nav-actions" style="display:flex;gap:8px;padding-top:4px">
+          <a href="admin/login.html" class="btn-admin">🔐 Admin</a>
+        </li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="admin/login.html" class="btn-admin">🔐 Login Admin</a>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-slides">
+      <div class="hero-slide active" style="background-image:url('/uploads/profil_desa.jpg')"></div>
+      <div class="hero-slide"
+        style="background-image:url('https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=1600&q=80')"></div>
+      <div class="hero-slide"
+        style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80')"></div>
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">🌿 Website Resmi Pemerintah Desa</div>
+        <h1 class="hero-title">
+          Selamat Datang di<br>
+          <span>Desa Persiapan Kiera</span>
+        </h1>
+        <p class="hero-subtitle">
+          Maju bersama, sejahtera berdampingan. Desa Persiapan Kiera terus bergerak membangun masyarakat yang mandiri,
+          transparan, dan berintegritas.
+        </p>
+        <div class="hero-actions">
+          <a href="profil.html" class="btn-hero-primary">📖 Profil Desa <span>→</span></a>
+          <a href="berita.html" class="btn-hero-secondary">📰 Baca Berita</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-cards">
+          <a href="statistik.html" class="hero-card">
+            <div class="icon">👥</div>
+            <div class="num" id="stat-penduduk">-</div>
+            <div class="label">Total Penduduk</div>
+          </a>
+          <a href="statistik.html" class="hero-card">
+            <div class="icon">🏠</div>
+            <div class="num" id="stat-kk">-</div>
+            <div class="label">Kepala Keluarga</div>
+          </a>
+          <a href="statistik.html" class="hero-card">
+            <div class="icon">👨</div>
+            <div class="num" id="stat-laki">-</div>
+            <div class="label">Laki-laki</div>
+          </a>
+          <a href="statistik.html" class="hero-card">
+            <div class="icon">👩</div>
+            <div class="num" id="stat-perempuan">-</div>
+            <div class="label">Perempuan</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-dots">
+      <button class="hero-dot active" data-idx="0"></button>
+      <button class="hero-dot" data-idx="1"></button>
+      <button class="hero-dot" data-idx="2"></button>
+    </div>
+  </section>
+
+  <!-- QUICK LINKS -->
+  <div class="quicklinks">
+    <div class="container">
+      <div class="quicklinks-inner">
+        <a href="profil.html" class="quicklink-item">
+          <div class="ql-icon">📋</div>
+          <span>Profil Desa</span>
+        </a>
+        <a href="pemerintah.html" class="quicklink-item">
+          <div class="ql-icon">👥</div>
+          <span>Aparatur Desa</span>
+        </a>
+        <a href="galeri.html" class="quicklink-item">
+          <div class="ql-icon">🖼️</div>
+          <span>Galeri Foto</span>
+        </a>
+        <a href="pembangunan.html" class="quicklink-item">
+          <div class="ql-icon">🏗️</div>
+          <span>Pembangunan</span>
+        </a>
+        <a href="statistik.html" class="quicklink-item">
+          <div class="ql-icon">📊</div>
+          <span>Data Statistik</span>
+        </a>
+        <a href="layanan.html" class="quicklink-item">
+          <div class="ql-icon">📨</div>
+          <span>Layanan & Pengaduan</span>
+        </a>
+        <a href="pengumuman.html" class="quicklink-item">
+          <div class="ql-icon">📢</div>
+          <span>Pengumuman</span>
+        </a>
+        <a href="berita.html" class="quicklink-item">
+          <div class="ql-icon">📰</div>
+          <span>Berita Desa</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BERITA SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">📰 Terkini</span>
+        <h2 class="section-title">Berita & Informasi Desa</h2>
+        <p class="section-desc">Temukan berita terbaru seputar kegiatan dan informasi penting Desa Persiapan Kiera.</p>
+      </div>
+      <div id="berita-home">
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:36px">
+        <a href="berita.html" class="btn btn-primary btn-lg">Lihat Semua Berita →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATISTIK SECTION -->
+  <section class="section stats-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.9)">📊 Data Desa</span>
+        <h2 class="section-title" style="color:#fff">Statistik Desa Persiapan Kiera</h2>
+        <p class="section-desc" style="color:rgba(255,255,255,.75)">Data kependudukan dan wilayah Desa Persiapan Kiera
+          yang selalu diperbarui.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card fade-up">
+          <div class="stat-icon">👥</div>
+          <div class="stat-num" id="count-penduduk" data-count="0">0</div>
+          <div class="stat-label">Total Penduduk</div>
+        </div>
+        <div class="stat-card fade-up">
+          <div class="stat-icon">🏠</div>
+          <div class="stat-num" id="count-kk" data-count="0">0</div>
+          <div class="stat-label">Kepala Keluarga</div>
+        </div>
+        <div class="stat-card fade-up">
+          <div class="stat-icon">👨</div>
+          <div class="stat-num" id="count-laki" data-count="0">0</div>
+          <div class="stat-label">Laki-laki</div>
+        </div>
+        <div class="stat-card fade-up">
+          <div class="stat-icon">👩</div>
+          <div class="stat-num" id="count-perempuan" data-count="0">0</div>
+          <div class="stat-label">Perempuan</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:40px">
+        <a href="statistik.html" class="btn"
+          style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.3);backdrop-filter:blur(8px)">
+          Lihat Data Lengkap →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFIL SINGKAT -->
+  <section class="section" style="background:var(--gray-50)">
+    <div class="container">
+      <div class="profil-layout">
+        <div class="profil-img fade-up">
+          <img src="uploads/profil_desa.jpg" alt="Desa Persiapan Kiera" loading="lazy">
+          <div class="profil-img-badge">
+            <div class="num">2025</div>
+            <div class="lbl">Tahun Persiapan</div>
+          </div>
+        </div>
+        <div class="profil-content fade-up">
+          <span class="section-tag">📖 Tentang Kami</span>
+          <h2 class="section-title" style="text-align:left;margin-bottom:16px">Desa Persiapan Kiera</h2>
+          <p>Desa Persiapan Kiera adalah sebuah desa yang tengah dalam proses pembentukan dan pengembangan, dengan tekad
+            kuat membangun masyarakat yang sejahtera, berkeadilan, dan berwawasan ke depan.</p>
+          <p>Nama "Kiera" berasal dari bahasa daerah setempat yang bermakna <em>cahaya harapan</em>. Dengan semangat
+            itu, seluruh warga dan pemerintah desa bersatu padu membangun tatanan kehidupan yang lebih baik.</p>
+          <div class="profil-points">
+            <div class="profil-point">
+              <div class="dot"></div>
+              <p><strong>Transparansi & Akuntabilitas</strong> – Pengelolaan anggaran desa yang terbuka dan dapat
+                dipertanggungjawabkan kepada seluruh warga.</p>
+            </div>
+            <div class="profil-point">
+              <div class="dot"></div>
+              <p><strong>Pemberdayaan Masyarakat</strong> – Mendorong partisipasi aktif warga dalam setiap proses
+                pengambilan keputusan desa.</p>
+            </div>
+            <div class="profil-point">
+              <div class="dot"></div>
+              <p><strong>Pembangunan Berkelanjutan</strong> – Infrastruktur dan layanan publik yang terus ditingkatkan
+                demi kemajuan bersama.</p>
+            </div>
+          </div>
+          <a href="profil.html" class="btn btn-primary">Selengkapnya →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APARATUR DESA -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">👥 Pemerintahan</span>
+        <h2 class="section-title">Aparatur Desa</h2>
+        <p class="section-desc">Perangkat desa yang berdedikasi melayani masyarakat Desa Persiapan Kiera dengan sepenuh
+          hati.</p>
+      </div>
+      <div id="aparatur-home">
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:36px">
+        <a href="pemerintah.html" class="btn btn-outline">Lihat Semua Aparatur →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERI SECTION -->
+  <section class="section" style="background:var(--gray-50)">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">🖼️ Dokumentasi</span>
+        <h2 class="section-title">Galeri Foto</h2>
+        <p class="section-desc">Abadikan setiap momen kegiatan dan keindahan Desa Persiapan Kiera dalam galeri kami.</p>
+      </div>
+      <div id="galeri-home">
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:36px">
+        <a href="galeri.html" class="btn btn-primary">Lihat Galeri Lengkap →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PENGUMUMAN SECTION -->
+  <section class="section">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start">
+        <div>
+          <div class="section-header" style="text-align:left;margin-bottom:32px">
+            <span class="section-tag">📢 Info Terkini</span>
+            <h2 class="section-title" style="text-align:left">Pengumuman & Agenda</h2>
+            <p class="section-desc" style="text-align:left;max-width:none">Informasi penting dan jadwal kegiatan Desa
+              Persiapan Kiera.</p>
+          </div>
+          <div id="pengumuman-home">
+            <div class="loading">
+              <div class="spinner"></div>
+            </div>
+          </div>
+          <div style="margin-top:24px">
+            <a href="pengumuman.html" class="btn btn-outline">Lihat Semua →</a>
+          </div>
+        </div>
+        <div>
+          <div class="section-header" style="text-align:left;margin-bottom:32px">
+            <span class="section-tag">🏗️ Infrastruktur</span>
+            <h2 class="section-title" style="text-align:left">Pembangunan Desa</h2>
+            <p class="section-desc" style="text-align:left;max-width:none">Program pembangunan demi kemajuan dan
+              kesejahteraan warga.</p>
+          </div>
+          <div id="pembangunan-home">
+            <div class="loading">
+              <div class="spinner"></div>
+            </div>
+          </div>
+          <div style="margin-top:24px">
+            <a href="pembangunan.html" class="btn btn-outline">Lihat Semua →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PETA SECTION -->
+  <section class="section peta-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">🗺️ Lokasi</span>
+        <h2 class="section-title">Peta Desa Persiapan Kiera</h2>
+      </div>
+      <div class="peta-container">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=128.0503649076028,-8.162189684936733,128.0903649076028,-8.122189684936733&layer=mapnik&marker=-8.142189684936733,128.0703649076028"
+          loading="lazy" title="Peta Desa Persiapan Kiera">
+        </iframe>
+      </div>
+      <div style="text-align:center;margin-top:16px">
+        <a href="https://www.openstreetmap.org/?mlat=-8.142189684936733&mlon=128.0703649076028#map=15/-8.142189684936733/128.0703649076028"
+          target="_blank" class="btn btn-outline btn-sm">🗺️ Buka Peta Penuh</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAYANAN CTA -->
+  <section class="section"
+    style="background:linear-gradient(135deg,var(--green-dark),var(--green-main));position:relative;overflow:hidden">
+    <div
+      style="position:absolute;top:-30%;right:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 70%);pointer-events:none">
+    </div>
+    <div class="container" style="text-align:center;position:relative;z-index:1">
+      <span class="section-tag" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.9)">🤝 Layanan
+        Publik</span>
+      <h2 class="section-title" style="color:#fff;margin-bottom:16px">Ada Keluhan atau Pengaduan?</h2>
+      <p
+        style="color:rgba(255,255,255,.8);font-size:1.05rem;margin-bottom:36px;max-width:560px;margin-left:auto;margin-right:auto">
+        Sampaikan aspirasi, keluhan, atau laporan Anda kepada pemerintah desa. Kami berkomitmen untuk merespons setiap
+        laporan dengan cepat.
+      </p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+        <a href="layanan.html" class="btn btn-gold btn-lg">📨 Kirim Pengaduan</a>
+        <a href="layanan.html#alur" class="btn"
+          style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.3)">📋 Alur Layanan</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <img src="uploads/logo.png" alt="Logo Desa Persiapan Kiera">
+            <div>
+              <div class="logo-text">Desa Persiapan Kiera</div>
+              <div class="logo-sub">Website Resmi Pemerintah Desa</div>
+            </div>
+          </div>
+          <p>Maju bersama membangun desa yang sejahtera, transparan, dan berkeadilan untuk seluruh warga Desa Persiapan
+            Kiera.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-btn" title="Facebook">📘</a>
+            <a href="#" class="social-btn" title="Instagram">📸</a>
+            <a href="#" class="social-btn" title="YouTube">▶️</a>
+            <a href="#" class="social-btn" title="WhatsApp">💬</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>📌 Navigasi</h4>
+          <div class="footer-links">
+            <a href="index.html">🏠 Beranda</a>
+            <a href="profil.html">📖 Profil Desa</a>
+            <a href="pemerintah.html">👥 Aparatur Desa</a>
+            <a href="berita.html">📰 Berita</a>
+            <a href="galeri.html">🖼️ Galeri</a>
+            <a href="pengumuman.html">📢 Pengumuman</a>
+            <a href="statistik.html">📊 Statistik</a>
+            <a href="pembangunan.html">🏗️ Pembangunan</a>
+            <a href="layanan.html">🤝 Layanan</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>🔗 Tautan</h4>
+          <div class="footer-links">
+            <a href="#">Pemerintah Pusat</a>
+            <a href="#">Pemerintah Provinsi</a>
+            <a href="#">Pemerintah Kabupaten</a>
+            <a href="admin/login.html">🔐 Login Admin</a>
+            <a href="#">Laporan APBDes</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>📞 Kontak</h4>
+          <div class="footer-contact">
+            <div class="footer-contact-item">
+              <span class="icon">📍</span>
+              <span>Desa Persiapan Kiera, Kecamatan Moa, Kabupaten Maluku Barat Daya, Maluku</span>
+            </div>
+            
+            
+            <div class="footer-contact-item">
+              <span class="icon">🕐</span>
+              <span>Senin – Jumat: 08.00 – 14.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Desa Persiapan Kiera. Seluruh hak dilindungi.</span>
+        <span>Dibuat dengan ❤️ untuk kemajuan desa</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">✕</button>
+    <div class="lightbox-content">
+      <img src="" alt="Galeri" id="lightbox-img">
+    </div>
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">↑</button>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
