@@ -1,0 +1,389 @@
+{
+  "id": 1,
+  "jumlah_penduduk": 1890,
+  "jumlah_kk": 436,
+  "laki_laki": 960,
+  "perempuan": 930,
+  "jumlah_dusun": 3,
+  "luas_wilayah": "0 Ha",
+  "updated_at": "2026-07-10 01:37:21",
+  "google_sheet_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7X20-IafHmy8U-8bzwRQ-GUlbi7kmihOYiZ8bbkDYwhdkhugBA6oYAS417Z1mtA/pub?output=csv",
+  "demografi": {
+    "pendidikan": [
+      {
+        "kategori": "pendidikan",
+        "label": "Tidak/Belum Sekolah",
+        "pria": 0,
+        "wanita": 0,
+        "total": 120
+      },
+      {
+        "kategori": "pendidikan",
+        "label": "Belum Tamat SD/Sederajat",
+        "pria": 0,
+        "wanita": 0,
+        "total": 150
+      },
+      {
+        "kategori": "pendidikan",
+        "label": "Tamat SD/Sederajat",
+        "pria": 0,
+        "wanita": 0,
+        "total": 350
+      },
+      {
+        "kategori": "pendidikan",
+        "label": "SLTP/Sederajat",
+        "pria": 0,
+        "wanita": 0,
+        "total": 280
+      },
+      {
+        "kategori": "pendidikan",
+        "label": "SLTA/Sederajat",
+        "pria": 0,
+        "wanita": 0,
+        "total": 420
+      },
+      {
+        "kategori": "pendidikan",
+        "label": "Diploma I/II",
+        "pria": 0,
+        "wanita": 0,
+        "total": 35
+      },
+      {
+        "kategori": "pendidikan",
+        "label": "Akademi/Diploma III",
+        "pria": 0,
+        "wanita": 0,
+        "total": 45
+      },
+      {
+        "kategori": "pendidikan",
+        "label": "Diploma IV/Strata I",
+        "pria": 0,
+        "wanita": 0,
+        "total": 110
+      },
+      {
+        "kategori": "pendidikan",
+        "label": "Strata II",
+        "pria": 0,
+        "wanita": 0,
+        "total": 15
+      },
+      {
+        "kategori": "pendidikan",
+        "label": "Strata III",
+        "pria": 0,
+        "wanita": 0,
+        "total": 5
+      }
+    ],
+    "pekerjaan": [
+      {
+        "kategori": "pekerjaan",
+        "label": "Belum/Tidak Bekerja",
+        "pria": 0,
+        "wanita": 0,
+        "total": 210
+      },
+      {
+        "kategori": "pekerjaan",
+        "label": "Mengurus Rumah Tangga",
+        "pria": 0,
+        "wanita": 0,
+        "total": 340
+      },
+      {
+        "kategori": "pekerjaan",
+        "label": "Pelajar/Mahasiswa",
+        "pria": 0,
+        "wanita": 0,
+        "total": 250
+      },
+      {
+        "kategori": "pekerjaan",
+        "label": "Pensiunan",
+        "pria": 0,
+        "wanita": 0,
+        "total": 20
+      },
+      {
+        "kategori": "pekerjaan",
+        "label": "Pegawai Negeri Sipil (PNS)",
+        "pria": 0,
+        "wanita": 0,
+        "total": 45
+      },
+      {
+        "kategori": "pekerjaan",
+        "label": "Karyawan Swasta",
+        "pria": 0,
+        "wanita": 0,
+        "total": 180
+      },
+      {
+        "kategori": "pekerjaan",
+        "label": "Petani/Pekebun",
+        "pria": 0,
+        "wanita": 0,
+        "total": 420
+      },
+      {
+        "kategori": "pekerjaan",
+        "label": "Nelayan",
+        "pria": 0,
+        "wanita": 0,
+        "total": 15
+      },
+      {
+        "kategori": "pekerjaan",
+        "label": "Wiraswasta",
+        "pria": 0,
+        "wanita": 0,
+        "total": 90
+      },
+      {
+        "kategori": "pekerjaan",
+        "label": "Buruh Harian Lepas",
+        "pria": 0,
+        "wanita": 0,
+        "total": 75
+      },
+      {
+        "kategori": "pekerjaan",
+        "label": "Perangkat Desa",
+        "pria": 0,
+        "wanita": 0,
+        "total": 10
+      }
+    ],
+    "agama": [
+      {
+        "kategori": "agama",
+        "label": "Islam",
+        "pria": 0,
+        "wanita": 0,
+        "total": 950
+      },
+      {
+        "kategori": "agama",
+        "label": "Kristen (Protestan)",
+        "pria": 0,
+        "wanita": 0,
+        "total": 320
+      },
+      {
+        "kategori": "agama",
+        "label": "Katolik",
+        "pria": 0,
+        "wanita": 0,
+        "total": 230
+      },
+      {
+        "kategori": "agama",
+        "label": "Hindu",
+        "pria": 0,
+        "wanita": 0,
+        "total": 15
+      },
+      {
+        "kategori": "agama",
+        "label": "Buddha",
+        "pria": 0,
+        "wanita": 0,
+        "total": 25
+      },
+      {
+        "kategori": "agama",
+        "label": "Konghucu",
+        "pria": 0,
+        "wanita": 0,
+        "total": 5
+      },
+      {
+        "kategori": "agama",
+        "label": "Lainnya",
+        "pria": 0,
+        "wanita": 0,
+        "total": 5
+      }
+    ],
+    "perkawinan": [
+      {
+        "kategori": "perkawinan",
+        "label": "Belum Kawin",
+        "pria": 0,
+        "wanita": 0,
+        "total": 620
+      },
+      {
+        "kategori": "perkawinan",
+        "label": "Kawin",
+        "pria": 0,
+        "wanita": 0,
+        "total": 820
+      },
+      {
+        "kategori": "perkawinan",
+        "label": "Cerai Hidup",
+        "pria": 0,
+        "wanita": 0,
+        "total": 45
+      },
+      {
+        "kategori": "perkawinan",
+        "label": "Cerai Mati",
+        "pria": 0,
+        "wanita": 0,
+        "total": 65
+      }
+    ],
+    "wajib_pilih": [
+      {
+        "kategori": "wajib_pilih",
+        "label": "Sudah Wajib Pilih",
+        "pria": 0,
+        "wanita": 0,
+        "total": 1120
+      },
+      {
+        "kategori": "wajib_pilih",
+        "label": "Belum Wajib Pilih",
+        "pria": 0,
+        "wanita": 0,
+        "total": 430
+      }
+    ],
+    "umur": [
+      {
+        "kategori": "umur",
+        "label": "0-4",
+        "pria": 50,
+        "wanita": 42,
+        "total": 92
+      },
+      {
+        "kategori": "umur",
+        "label": "5-9",
+        "pria": 52,
+        "wanita": 48,
+        "total": 100
+      },
+      {
+        "kategori": "umur",
+        "label": "10-14",
+        "pria": 58,
+        "wanita": 55,
+        "total": 113
+      },
+      {
+        "kategori": "umur",
+        "label": "15-19",
+        "pria": 60,
+        "wanita": 58,
+        "total": 118
+      },
+      {
+        "kategori": "umur",
+        "label": "20-24",
+        "pria": 65,
+        "wanita": 62,
+        "total": 127
+      },
+      {
+        "kategori": "umur",
+        "label": "25-29",
+        "pria": 70,
+        "wanita": 68,
+        "total": 138
+      },
+      {
+        "kategori": "umur",
+        "label": "30-34",
+        "pria": 75,
+        "wanita": 72,
+        "total": 147
+      },
+      {
+        "kategori": "umur",
+        "label": "35-39",
+        "pria": 80,
+        "wanita": 78,
+        "total": 158
+      },
+      {
+        "kategori": "umur",
+        "label": "40-44",
+        "pria": 82,
+        "wanita": 80,
+        "total": 162
+      },
+      {
+        "kategori": "umur",
+        "label": "45-49",
+        "pria": 75,
+        "wanita": 74,
+        "total": 149
+      },
+      {
+        "kategori": "umur",
+        "label": "50-54",
+        "pria": 68,
+        "wanita": 66,
+        "total": 134
+      },
+      {
+        "kategori": "umur",
+        "label": "55-59",
+        "pria": 55,
+        "wanita": 53,
+        "total": 108
+      },
+      {
+        "kategori": "umur",
+        "label": "60-64",
+        "pria": 45,
+        "wanita": 42,
+        "total": 87
+      },
+      {
+        "kategori": "umur",
+        "label": "65-69",
+        "pria": 35,
+        "wanita": 32,
+        "total": 67
+      },
+      {
+        "kategori": "umur",
+        "label": "70-74",
+        "pria": 25,
+        "wanita": 22,
+        "total": 47
+      },
+      {
+        "kategori": "umur",
+        "label": "75-79",
+        "pria": 15,
+        "wanita": 12,
+        "total": 27
+      },
+      {
+        "kategori": "umur",
+        "label": "80-84",
+        "pria": 8,
+        "wanita": 6,
+        "total": 14
+      },
+      {
+        "kategori": "umur",
+        "label": "85+",
+        "pria": 4,
+        "wanita": 2,
+        "total": 6
+      }
+    ]
+  }
+}

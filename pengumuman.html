@@ -109,7 +109,7 @@
   async function loadPengumuman() {
     const c = document.getElementById('pengumuman-container');
     try {
-      const res = await fetch('/api/pengumuman');
+      const res = await fetch('data/pengumuman.json');
       const data = await res.json();
       if (!data.length) {
         c.innerHTML = `<div style="text-align:center;padding:60px;color:var(--gray-600)"><div style="font-size:3rem;margin-bottom:12px">📭</div><p>Belum ada pengumuman</p></div>`;

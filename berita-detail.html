@@ -318,12 +318,15 @@
     }
 
     async function loadBeritaDetail() {
-      const id = new URLSearchParams(window.location.search).get('id');
+      const id = parseInt(new URLSearchParams(window.location.search).get('id'));
       if (!id) { document.getElementById('article-main').innerHTML = '<p style="text-align:center;padding:60px;color:#ef4444">Berita tidak ditemukan</p>'; return; }
       try {
-        const res = await fetch(`/api/berita/${id}`);
-        if (!res.ok) throw new Error();
-        const b = await res.json();
+        const res = await fetch('data/berita.json');
+        const allBerita = await res.json();
+        const b = allBerita.find(item => item.id === id);
+        if (!b) throw new Error('Not found');
+        // Related: same category, different id
+        b.terkait = allBerita.filter(item => item.id !== id && item.kategori === b.kategori).slice(0, 4);
 
         document.title = `${b.judul} - Desa Persiapan Kiera`;
         document.getElementById('breadcrumb-title').textContent = b.judul.substring(0, 40) + (b.judul.length > 40 ? '...' : '');
@@ -388,6 +391,8 @@
         document.getElementById('article-main').innerHTML = '<p style="text-align:center;padding:60px;color:#ef4444">Berita tidak ditemukan atau terjadi kesalahan</p>';
       }
     }
+
+
 
     function shareWA() {
       window.open('https://wa.me/?text=' + encodeURIComponent(document.title + ' - ' + window.location.href));

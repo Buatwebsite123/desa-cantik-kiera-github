@@ -202,14 +202,30 @@
       return m[k] || k || 'Berita';
     }
 
+    let allBerita = [];
+
     async function loadBerita() {
       const container = document.getElementById('berita-container');
       container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
       try {
-        const url = `/api/berita?page=${currentPage}&limit=9&kategori=${currentKat}&search=${encodeURIComponent(currentSearch)}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (!data.data.length) {
+        if (!allBerita.length) {
+          const res = await fetch('data/berita.json');
+          allBerita = await res.json();
+        }
+        // Filter by category
+        let filtered = allBerita;
+        if (currentKat) filtered = filtered.filter(b => b.kategori === currentKat);
+        // Filter by search
+        if (currentSearch) {
+          const q = currentSearch.toLowerCase();
+          filtered = filtered.filter(b => b.judul.toLowerCase().includes(q) || (b.konten || '').toLowerCase().includes(q) || (b.ringkasan || '').toLowerCase().includes(q));
+        }
+        // Pagination
+        const perPage = 9;
+        const totalPages = Math.ceil(filtered.length / perPage);
+        const pageItems = filtered.slice((currentPage - 1) * perPage, currentPage * perPage);
+
+        if (!pageItems.length) {
           container.innerHTML = `<div style="text-align:center;padding:80px;color:var(--gray-600)">
           <div style="font-size:4rem;margin-bottom:16px">📭</div>
           <h3 style="font-size:1.2rem;color:var(--gray-800);margin-bottom:8px">Berita tidak ditemukan</h3>
@@ -220,7 +236,7 @@
         }
         container.innerHTML = `
         <div class="berita-cards-grid">
-          ${data.data.map(b => `
+          ${pageItems.map(b => `
             <a href="berita-detail.html?id=${b.id}" class="news-card fade-up">
               <div class="news-card-img">
                 ${b.gambar
@@ -242,7 +258,7 @@
         </div>
       `;
         // Pagination
-        renderPagination(data.totalPages, data.page);
+        renderPagination(totalPages, currentPage);
         // Activate animations
         setTimeout(() => {
           document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));

@@ -510,7 +510,7 @@
       if (hash && sectionMap[hash]) switchTab(hash);
 
       // Load stats
-      fetch('/api/statistik').then(r => r.json()).then(d => {
+      fetch('data/statistik.json').then(r => r.json()).then(d => {
         const el = id => document.getElementById(id);
         if (el('info-penduduk')) el('info-penduduk').textContent = (d.jumlah_penduduk || 0).toLocaleString('id-ID') + ' jiwa';
         if (el('info-kk')) el('info-kk').textContent = (d.jumlah_kk || 0).toLocaleString('id-ID') + ' KK';

@@ -242,7 +242,7 @@
     async function loadAparatur() {
       const container = document.getElementById('aparatur-container');
       try {
-        const res = await fetch('/api/aparatur');
+        const res = await fetch('data/aparatur.json');
         const data = await res.json();
         if (!data.length) {
           container.innerHTML = '<p style="text-align:center;color:var(--gray-600);padding:60px">Data aparatur belum tersedia</p>';

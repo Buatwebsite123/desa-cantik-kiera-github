@@ -130,7 +130,7 @@
   async function loadGaleri() {
     const container = document.getElementById('galeri-container');
     try {
-      const res = await fetch('/api/galeri');
+      const res = await fetch('data/galeri.json');
       const data = await res.json();
       if (!data.length) {
         container.innerHTML = `<div style="text-align:center;padding:80px;color:var(--gray-600)">

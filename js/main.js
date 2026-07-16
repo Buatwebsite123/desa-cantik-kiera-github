@@ -170,9 +170,10 @@ async function loadBeritaHome() {
   const container = document.getElementById('berita-home');
   if (!container) return;
   try {
-    const res = await fetch('/api/berita?limit=5');
-    const data = await res.json();
-    const items = data.data || [];
+    const res = await fetch('data/berita.json');
+    const allItems = await res.json();
+    const data = { data: allItems };
+    const items = allItems.slice(0, 5);
     if (!items.length) { container.innerHTML = '<p style="text-align:center;color:#64748b">Belum ada berita</p>'; return; }
 
     const featured = items[0];
@@ -222,7 +223,7 @@ async function loadStatistikHome() {
   if (!hasStats) return;
 
   try {
-    const res = await fetch('/api/statistik?t=' + Date.now());
+    const res = await fetch('data/statistik.json');
     const d = await res.json();
     
     // Hero stats (text display)
@@ -254,7 +255,7 @@ async function loadGaleriHome() {
   const container = document.getElementById('galeri-home');
   if (!container) return;
   try {
-    const res = await fetch('/api/galeri');
+    const res = await fetch('data/galeri.json');
     const data = await res.json();
     const items = data.slice(0, 6);
     if (!items.length) { container.innerHTML = '<p style="text-align:center;color:#64748b">Belum ada foto galeri</p>'; return; }
@@ -286,7 +287,7 @@ async function loadPengumumanHome() {
   const container = document.getElementById('pengumuman-home');
   if (!container) return;
   try {
-    const res = await fetch('/api/pengumuman');
+    const res = await fetch('data/pengumuman.json');
     const data = await res.json();
     const items = data.slice(0, 4);
     if (!items.length) { container.innerHTML = '<p style="text-align:center;color:#64748b">Belum ada pengumuman</p>'; return; }
@@ -319,7 +320,7 @@ async function loadAparaturHome() {
   const container = document.getElementById('aparatur-home');
   if (!container) return;
   try {
-    const res = await fetch('/api/aparatur');
+    const res = await fetch('data/aparatur.json');
     const data = await res.json();
     const items = data.slice(0, 6);
     container.innerHTML = `
@@ -343,7 +344,7 @@ async function loadPembangunanHome() {
   const container = document.getElementById('pembangunan-home');
   if (!container) return;
   try {
-    const res = await fetch('/api/pembangunan');
+    const res = await fetch('data/pembangunan.json');
     const data = await res.json();
     const items = data.slice(0, 4);
     container.innerHTML = `
@@ -418,24 +419,21 @@ function showToast(msg, type = 'success') {
 function initPengaduanForm() {
   const form = document.getElementById('form-pengaduan');
   if (!form) return;
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
-    try {
-      const res = await fetch('/api/pengaduan', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      if (res.ok) {
-        showToast('Pengaduan berhasil dikirim! Kami akan segera menindaklanjuti.');
-        form.reset();
-      } else {
-        showToast('Gagal mengirim pengaduan', 'error');
-      }
-    } catch (e) {
-      showToast('Gagal mengirim pengaduan', 'error');
-    }
+    const subject = encodeURIComponent(`[Pengaduan] ${data.subjek || 'Pengaduan Warga'}`);
+    const body = encodeURIComponent(
+      `Nama: ${data.nama || '-'}\n` +
+      `No. HP: ${data.no_hp || '-'}\n` +
+      `Email: ${data.email || '-'}\n` +
+      `Subjek: ${data.subjek || '-'}\n\n` +
+      `Pesan:\n${data.pesan || '-'}`
+    );
+    // Kirim via email
+    window.location.href = `mailto:admin@desakiera.id?subject=${subject}&body=${body}`;
+    showToast('Pengaduan siap dikirim! Silakan kirim dari aplikasi email Anda.');
+    form.reset();
   });
 }
 

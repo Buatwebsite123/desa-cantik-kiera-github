@@ -74,7 +74,7 @@
   async function loadPembangunan() {
     const c = document.getElementById('pembangunan-container');
     try {
-      const res = await fetch('/api/pembangunan');
+      const res = await fetch('data/pembangunan.json');
       allData = await res.json();
       renderPembangunan();
     } catch(e) {

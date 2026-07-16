@@ -1,0 +1,46 @@
+[
+  {
+    "id": 7,
+    "nama": "Pembangunan Saluran Irigasi Persawahan",
+    "deskripsi": "Pembangunan saluran irigasi untuk mendukung pertanian warga",
+    "anggaran": "Rp. 320.000.000",
+    "sumber_dana": "Dana Desa",
+    "status": "proses",
+    "tahun": 2025,
+    "lokasi": "Kawasan Persawahan",
+    "created_at": "2026-07-14 02:58:29"
+  },
+  {
+    "id": 8,
+    "nama": "Pengadaan Sarana Air Bersih",
+    "deskripsi": "Pemasangan pipa dan bak penampungan air bersih untuk 3 dusun",
+    "anggaran": "Rp. 150.000.000",
+    "sumber_dana": "Dana Desa + Bantuan Provinsi",
+    "status": "rencana",
+    "tahun": 2025,
+    "lokasi": "Seluruh Dusun",
+    "created_at": "2026-07-14 02:58:29"
+  },
+  {
+    "id": 5,
+    "nama": "Pembangunan Jalan Desa Dusun I - Dusun II",
+    "deskripsi": "Pengaspalan jalan penghubung antar dusun sepanjang 500 meter",
+    "anggaran": "Rp. 250.000.000",
+    "sumber_dana": "Dana Desa",
+    "status": "selesai",
+    "tahun": 2024,
+    "lokasi": "Dusun I - Dusun II",
+    "created_at": "2026-07-14 02:58:29"
+  },
+  {
+    "id": 6,
+    "nama": "Renovasi Balai Desa Persiapan Kiera",
+    "deskripsi": "Renovasi total balai desa termasuk atap, dinding, dan lantai",
+    "anggaran": "Rp. 180.000.000",
+    "sumber_dana": "ADD",
+    "status": "selesai",
+    "tahun": 2024,
+    "lokasi": "Pusat Desa",
+    "created_at": "2026-07-14 02:58:29"
+  }
+]

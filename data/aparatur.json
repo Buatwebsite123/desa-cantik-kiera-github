@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "nama": "KAREL KAIDIALU",
+    "jabatan": "PJ. Kepala Desa Persiapan Kiera",
+    "nip": "-",
+    "foto": null,
+    "urutan": 1
+  },
+  {
+    "id": 2,
+    "nama": "KAREL JOKTETIMERA",
+    "jabatan": "Operator Desa",
+    "nip": "-",
+    "foto": null,
+    "urutan": 2
+  },
+  {
+    "id": 4,
+    "nama": "KILYON PAKNIANY",
+    "jabatan": "SEKRETARIS DESA PERSIAPAN KIERA",
+    "nip": "-",
+    "foto": null,
+    "urutan": 2
+  },
+  {
+    "id": 3,
+    "nama": "EDISON JOKTETIMERA",
+    "jabatan": "Kaur Umum",
+    "nip": "-",
+    "foto": null,
+    "urutan": 3
+  },
+  {
+    "id": 5,
+    "nama": "MARGARETA NONA",
+    "jabatan": "Kaur Pemerintahan",
+    "nip": "-",
+    "foto": null,
+    "urutan": 5
+  },
+  {
+    "id": 6,
+    "nama": "STEFANUS KORO",
+    "jabatan": "Kaur Pembangunan",
+    "nip": "-",
+    "foto": null,
+    "urutan": 6
+  }
+]

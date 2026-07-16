@@ -278,7 +278,7 @@
   async function loadStatistik() {
     const c = document.getElementById('statistik-content');
     try {
-      const res = await fetch('/api/statistik?t=' + Date.now());
+      const res = await fetch('data/statistik.json');
       const d = await res.json();
       
       const total = d.jumlah_penduduk || 0;
